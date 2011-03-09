@@ -1,6 +1,14 @@
 Totsnyc::Application.routes.draw do
-  get "pages/about"
+  root :to => "pages#about"
+  get "pages/about", :as => :about
+  get "pages/events", :as => :events
+  # match "pages/events" => 'pages#events', :as => :events
+  get "pages/scheduling", :as => :scheduling  
+  get "pages/directories", :as => :directories
+  get "pages/lists", :as => :lists
+  get "pages/tasks", :as => :tasks
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
