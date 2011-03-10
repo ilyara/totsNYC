@@ -1,0 +1,49 @@
+http://maps.google.com/maps/place?cid=13393458397880860953
+
+javascript:void(prompt('',gApplication.getMap().getCenter()));
+
+https://graph.facebook.com/search?type=place&center=40.780070234927074,-73.96749258041382&distance=1000 --- plus oauth token
+
+https://graph.facebook.com/165197576843730
+
+{
+   "id": "165197576843730",
+   "name": "Central park",
+   "picture": "http://static.ak.fbcdn.net/rsrc.php/v1/y2/r/pASyg-hBcD5.png",
+   "link": "http://www.facebook.com/pages/Central-park/165197576843730",
+   "category": "Local business",
+   "is_community_page": true,
+   "location": {
+      "latitude": 40.781333166667,
+      "longitude": -73.96136245
+   },
+   "checkins": 126
+}
+
+http://www.yelp.com/biz/central-park-new-york
+biz_id=xOw4aafJRji9XomGunlvcQ
+
+http://gowalla.com/spots/12184 - central park
+http://gowalla.com/spots/12184.json
+foursquare_id = 4c10eebfce640f4738a93a52
+
+http://gowalla.com/spots/12349 - carousel
+http://gowalla.com/spots/12345 - Bow Bridge
+http://gowalla.com/spots/12164 - The Met
+http://gowalla.com/spots/12174 - Bethesda Terrace
+
+http://gowalla.com/trips/25
+
+{"address":{"region":"NY","iso3166":"US","street_address":null,"locality":"New York"},"name":"Central Park","yelp_url":null,"checkins_count":3203,"bookmarked":null,"created_at":"2009-04-27T13:11:55Z","_image_url_200":"http://static.gowalla.com/categories/38-a6116420ce8795c904a45b28e2c5ac2f-200.png","image_url":"http://static.gowalla.com/categories/38-69fb37a4291ebf8e325eb9ecf67f4a51-100.png","twitter_username":null,"max_items_count":10,"radius_meters":650,"creator":{"image_url":"http://s3.amazonaws.com/static.gowalla.com/users/1205-standard.jpg?1263085592","url":"/users/1205","last_name":"williams","first_name":"sue"},"trending_level":0,"url":"/spots/12184","users_count":1948,"map_bounds":{"south":null,"north":null,"west":null,"east":null},"websites":[],"checkins_url":"/checkins?spot_id=12184","foursquare_id":"4c10eebfce640f4738a93a52","spot_categories":[{"name":"City Park","url":"/categories/38"}],"id":12184,"lng":"-73.973865509","highlights_url":"/spots/12184/highlights","highlights_count":70,"phone_number":null,"list_image_url_320":null,"items_url":"/spots/12184/items","items_count":10,"_photos_count":151,"hours":null,"photos_url":"/spots/12184/photos","description":"","strict_radius":false,"lat":"40.7707268469","activity_url":"/spots/12184/events","photos_count":151}
+
+http://dev.twitter.com/pages/finding_tweets_about_places
+
+http://api.twitter.com/1/geo/search.json?accuracy=0&query=New%20York%2C+NY&autocomplete=false&granularity=city
+
+{"result":{"places":[{"country_code":"US","url":"http:\/\/api.twitter.com\/1\/geo\/id\/27485069891a7938.json","bounding_box":{"type":"Polygon","coordinates":[[[-74.25909,40.477399],[-73.700272,40.477399],[-73.700272,40.917477],[-74.25909,40.917477]]]},"country":"United States","contained_within":[{"country_code":"US","bounding_box":{"type":"Polygon","coordinates":[[[-79.76259,40.477399],[-71.777491,40.477399],[-71.777491,45.015865],[-79.76259,45.015865]]]},"url":"http:\/\/api.twitter.com\/1\/geo\/id\/94965b2c45386f87.json","country":"United States","attributes":{},"name":"New York","full_name":"New York, US","place_type":"admin","id":"94965b2c45386f87"}],"attributes":{},"place_type":"city","full_name":"New York, NY","name":"New York","id":"27485069891a7938"},{"country_code":"US","url":"http:\/\/api.twitter.com\/1\/geo\/id\/177ae52f4651c968.json","bounding_box":{"type":"Polygon","coordinates":[[[-75.305809,43.088569],[-75.279842,43.088569],[-75.279842,43.115403],[-75.305809,43.115403]]]},"country":"United States","contained_within":[{"country_code":"US","bounding_box":{"type":"Polygon","coordinates":[[[-79.76259,40.477399],[-71.777491,40.477399],[-71.777491,45.015865],[-79.76259,45.015865]]]},"url":"http:\/\/api.twitter.com\/1\/geo\/id\/94965b2c45386f87.json","country":"United States","attributes":{},"name":"New York","full_name":"New York, US","place_type":"admin","id":"94965b2c45386f87"}],"attributes":{},"place_type":"city","full_name":"New York Mills, NY","name":"New York Mills","id":"177ae52f4651c968"},{"country_code":"US","url":"http:\/\/api.twitter.com\/1\/geo\/id\/42fc6353ce1f15b5.json","bounding_box":{"type":"Polygon","coordinates":[[[-73.947178,40.764988],[-73.947178,40.764988],[-73.947178,40.764988],[-73.947178,40.764988]]]},"country":"United States","contained_within":[{"country_code":"US","url":"http:\/\/api.twitter.com\/1\/geo\/id\/94965b2c45386f87.json","bounding_box":{"type":"Polygon","coordinates":[[[-79.76259,40.477399],[-71.777491,40.477399],[-71.777491,45.015865],[-79.76259,45.015865]]]},"country":"United States","attributes":{},"place_type":"admin","full_name":"New York, US","name":"New York","id":"94965b2c45386f87"}],"attributes":{},"place_type":"city","full_name":"New York City, NY","name":"New York City","id":"42fc6353ce1f15b5"}]},"query":{"type":"search","url":"http:\/\/api.twitter.com\/1\/geo\/search.json?query=New+York%2C+NY&autocomplete=false&trim_place=false&granularity=city&accuracy=0.0","params":{"query":"New York, NY","autocomplete":false,"trim_place":false,"granularity":"city","accuracy":0.0}}}
+
+twidder ID for Central Park = 066b0790aa09b9fa
+
+http://api.twitter.com/1/geo/id/066b0790aa09b9fa.json
+
+{"country_code":"US","bounding_box":{"type":"Polygon","coordinates":[[[-73.981634,40.764325],[-73.949281,40.764325],[-73.949281,40.800704],[-73.981634,40.800704]]]},"url":"http://api.twitter.com/1/geo/id/066b0790aa09b9fa.json","geometry":{"type":"Polygon","coordinates":[[[-73.97905,40.766932],[-73.981311,40.767831],[-73.981396,40.768268],[-73.981634,40.768483],[-73.975876,40.776269],[-73.964698,40.791723],[-73.964134,40.792503],[-73.95821,40.800704],[-73.94954,40.797003],[-73.949281,40.796887],[-73.955794,40.787843],[-73.966561,40.773103],[-73.973065,40.764325],[-73.973791,40.764621],[-73.976218,40.765717],[-73.97905,40.766932]]]},"polylines":["ihywF``pbMsDbMwAPi@l@uo@}b@q_B{dA{CqBgr@_d@bVeu@Ts@pw@tg@b{AhbAxu@tg@y@nC{EdNqFtP"],"country":"United States","attributes":{"162834:id":"7621"},"contained_within":[{"country_code":"US","bounding_box":{"type":"Polygon","coordinates":[[[-74.25909,40.477399],[-73.700272,40.477399],[-73.700272,40.917477],[-74.25909,40.917477]]]},"url":"http://api.twitter.com/1/geo/id/27485069891a7938.json","country":"United States","attributes":{},"name":"New York","full_name":"New York, NY","place_type":"city","id":"27485069891a7938"}],"name":"Central Park","full_name":"Central Park, New York","place_type":"neighborhood","id":"066b0790aa09b9fa"}

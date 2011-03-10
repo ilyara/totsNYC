@@ -7,6 +7,8 @@ Totsnyc::Application.routes.draw do
   get "pages/directories", :as => :directories
   get "pages/lists", :as => :lists
   get "pages/tasks", :as => :tasks
+  get "pages/newsfeed", :as => :newsfeed
+  get "pages/bbs", :as => :bbs
 
   
   # The priority is based upon order of creation:
