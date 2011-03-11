@@ -1,4 +1,12 @@
 Totsnyc::Application.routes.draw do
+  resources :posts
+
+  resources :postings
+
+  resources :places
+
+  resources :lores
+
   root :to => "pages#about"
   get "pages/about", :as => :about
   get "pages/events", :as => :events

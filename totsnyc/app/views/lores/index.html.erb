@@ -1,0 +1,21 @@
+<h1>Listing lores</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lores.each do |lore| %>
+  <tr>
+    <td><%= link_to 'Show', lore %></td>
+    <td><%= link_to 'Edit', edit_lore_path(lore) %></td>
+    <td><%= link_to 'Destroy', lore, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lore', new_lore_path %>
