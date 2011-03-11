@@ -3,3 +3,16 @@
 
 en:
   hello: "Hello world"
+  show: "show"
+  edit: "edit"
+  destroy: "destroy"
+  delete: "delete"
+  are_you_sure: "are you sure?"
+  back: "back"
+  new: "new"
+  actions: "Actions"
+  kukas:
+      index:
+          new_kuka: "new"
+          title: "ku"
+

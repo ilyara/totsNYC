@@ -1,0 +1,10 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), kukas_path
+  = link_to t('edit'), edit_kuka_path(@kuka)
+
+%dl
+  %dt= Kuka.human_attribute_name :name
+  %dd= @kuka.name
+  %dt= Kuka.human_attribute_name :comment
+  %dd= @kuka.comment
