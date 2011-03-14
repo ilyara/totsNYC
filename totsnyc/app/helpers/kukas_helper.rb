@@ -1,0 +1,2 @@
+module KukasHelper
+end

@@ -1,4 +1,10 @@
 Totsnyc::Application.routes.draw do
+  resources :kukas
+
+  resources :kukus
+
+  resources :tags
+
   resources :posts
 
   resources :postings

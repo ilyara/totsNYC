@@ -10,13 +10,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310214725) do
+ActiveRecord::Schema.define(:version => 20110311212614) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.datetime "start_datetime"
     t.integer  "recurrence"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "journal", :force => true do |t|
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by"
+    t.integer  "entry_type"
+  end
+
+  create_table "kukas", :force => true do |t|
+    t.string   "name"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "kukus", :force => true do |t|
+    t.string   "name"
+    t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,6 +51,13 @@ ActiveRecord::Schema.define(:version => 20110310214725) do
     t.integer  "georef"
   end
 
+  create_table "persons", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "places", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -36,10 +65,54 @@ ActiveRecord::Schema.define(:version => 20110310214725) do
     t.datetime "updated_at"
   end
 
+  create_table "plistitems", :force => true do |t|
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by"
+    t.integer  "plist_id"
+    t.integer  "plist_order"
+  end
+
+  create_table "plists", :force => true do |t|
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by"
+    t.integer  "entry_type"
+  end
+
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "registrations", :force => true do |t|
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by"
+    t.integer  "person_id"
+    t.integer  "event_id",   :null => false
+  end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "tag_type"
   end
 
 end
