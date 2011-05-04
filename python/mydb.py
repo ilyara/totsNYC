@@ -37,17 +37,28 @@ class MyDb:
         except sqlite3.OperationalError as Err: # hmm?
             print Err
             # exit(1)
- 
+            
+    def execSQL(self, sql):
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            print "Executing sql:\n%s" % sql
+        except sqlite3.OperationalError as Err: # hmm?
+            print Err
+            
     def insertData(self, tableName, fieldArray, dataDict):
         fieldNames = ', '.join(fieldArray)
         valueString = ', '.join(['?' for x in fieldArray])
         sql = "INSERT INTO %(tableName)s(%(fieldNames)s) \nVALUES (%(valueString)s)" \
         % {'tableName': tableName, 'fieldNames': fieldNames, 'valueString': valueString}
         print sql
-        # print dataDict
+        print dataDict
         
         try:
-            self.cursor.executemany(sql, dataDict)
+            if len(dataDict) > 1:
+                self.cursor.executemany(sql, dataDict)
+            else:
+                self.cursor.execute(sql, dataDict[0])
             self.conn.commit()
         except sqlite3.ProgrammingError as Err:
             print Err

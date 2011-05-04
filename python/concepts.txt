@@ -1,0 +1,25 @@
+tree
+session
+content
+urls
+hierarchy
+
+========
+
+example:
+
+Alibaba Product Categories
+    Agriculture (sub page)
+        Grain (sub page)
+        Fruit
+    Apparel
+        Apparel Agents
+        
+============
+
+sql = """CREATE TABLE tree(
+id INTEGER PRIMARY KEY AUTOINCREMENT, 
+pid INTEGER, 
+name VARCHAR(50), 
+value VARCHAR(50)
+)"""
