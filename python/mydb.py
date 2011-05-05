@@ -23,7 +23,7 @@ class MyDb:
         sql = "SELECT * from sqlite_master"
         try:
             self.cursor.execute(sql)
-            print "DB is valid"
+            self.debug("DB is valid")
         except sqlite3.DatabaseError as Err: # hmm?
             print Err
             exit(1)
@@ -33,26 +33,26 @@ class MyDb:
         try:
             self.cursor.execute(sql)
             self.conn.commit()
-            print "Table %s created" % tableName
+            self.debug("Table %s created" % tableName)
         except sqlite3.OperationalError as Err: # hmm?
-            print Err
+            self.debug(Err)
             # exit(1)
             
     def execSQL(self, sql):
         try:
             self.cursor.execute(sql)
             self.conn.commit()
-            print "Executing sql:\n%s" % sql
+            self.debug("Executing sql:\n%s" % sql)
         except sqlite3.OperationalError as Err: # hmm?
-            print Err
+            self.debug(Err)
             
     def insertData(self, tableName, fieldArray, dataDict):
         fieldNames = ', '.join(fieldArray)
         valueString = ', '.join(['?' for x in fieldArray])
         sql = "INSERT INTO %(tableName)s(%(fieldNames)s) \nVALUES (%(valueString)s)" \
         % {'tableName': tableName, 'fieldNames': fieldNames, 'valueString': valueString}
-        print sql
-        print dataDict
+        self.debug(sql)
+        self.debug(dataDict)
         
         try:
             if len(dataDict) > 1:
@@ -60,20 +60,34 @@ class MyDb:
             else:
                 self.cursor.execute(sql, dataDict[0])
             self.conn.commit()
+            return self.cursor.lastrowid
         except sqlite3.ProgrammingError as Err:
             print Err
             pass
  
+    def parentNKids(self, tableName, fieldArray, parent, kids):
+        #insert parent, get pid, insert kids
+        pid = self.insertData(tableName, fieldArray, parent)
+        print "Inserted %s, assigned id of %d..." % (parent, pid)
+        kids = [(pid, ) + kid for kid in kids]
+        self.insertData(tableName, fieldArray, kids)
+        
+
     def getData(self, tableName):
         songDict = {}
         sql = "SELECT * FROM %s" % tableName
         self.cursor.execute(sql)
         results = self.cursor.fetchall()
-        print results
- 
+
+        self.debug(results)
         return results
  
     def closeHandle(self):
         'Closes the connection to the database'
         self.conn.commit() # Make sure all changes are saved
         self.conn.close()
+
+    def debug(self, debugMessage):
+        pass
+        # print debugMessage
+        

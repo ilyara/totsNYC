@@ -1,5 +1,8 @@
 import urllib2
 from BeautifulSoup import BeautifulSoup
+import json
+import mydb
+
 
 url = 'file:///home/ilya/Development/python/ilya/product_categories.html'
 page = urllib2.urlopen(url)
@@ -26,16 +29,20 @@ ssubCat = [[(y.text, y.a['href']) for y in q] for q in subCat]
 
 haha = zip(catY, ssubCat)
 
-print "\n".join(["Category: %s, %d" % (q[0], len(q[1])) for q in haha])
+# print "\n".join(["Category: %s, %d" % (q[0], len(q[1])) for q in haha])
 
-# y1 = [y0.findAll('li') for y0 in yy]
+db = mydb.MyDb()
+sql = """CREATE TABLE tree(
+id INTEGER PRIMARY KEY AUTOINCREMENT, 
+pid INTEGER, 
+name VARCHAR(50), 
+value VARCHAR(50)
+)"""
+db.execSQL(sql)
 
-# print zip(xx, yy)
-# print [z.text for z in xx]
-# print soup.html.body
+# print json.dumps(haha)
+# db.insertData('tree', ['pid', 'name', 'value'], testdata)
 
-#for incident in soup('td', width="90%"):
-#    where, linebreak, what = incident.contents[:3]
-#    print where.strip()
-#    print what.strip()
-#    print
+[db.parentNKids('tree', ['pid', 'name', 'value'], [('', q[0], '')], q[1]) for q in haha]
+
+# print db.getData("tree")
