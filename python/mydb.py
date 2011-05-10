@@ -3,11 +3,7 @@
 import sqlite3
  
 """
-songDict:
-the key is the song
-songDict[0] = path
-songDict[1] = artist
-songDict[2] = album
+blah blah blah
 """
  
 class MyDb:

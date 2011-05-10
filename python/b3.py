@@ -3,13 +3,8 @@ from BeautifulSoup import BeautifulSoup
 
 url = 'file:///home/ilya/Development/python/ilya/agriculture_p1.html'
 page = urllib2.urlopen(url)
-# print page.read()
 soup = BeautifulSoup(page, convertEntities=BeautifulSoup.HTML_ENTITIES)
 cat = soup.find('div', 'cateMenu')#{'id':'categories'})
-
-#print cat.findNext('h4').text
-#print cat.findNext('h4').text
-#print '-->' + cat.ul.li.text
 
 # sections are denoted by divs
 
@@ -18,10 +13,6 @@ sec = cat.findAll('div', 'catesub')
 print [e.name for e in cat.findAll(recursive=False)]
 print [e.name for e in cat.div.ul.findAll(recursive=False)]
 print [e.name for e in cat.div.ul.div.div.findAll(recursive=False)]
-#print "=== All h4 in cat:"
-#print [e.text for e in cat.findAll('h4')]
-print "=== All (non-recursive) link names in ul 0:"
-print [(e.name, e.text) for e in cat.ul.findAll('li',recursive=False)]
 
 print "=== All (non-recursive) link names in all ul-s:"
 
@@ -32,8 +23,12 @@ yy = [e.findAll('ul',recursive=False) for e in cat.findAll('div', 'content', rec
 
 zz = [[q.findAll('li',recursive=False) for q in e] for e in yy]
 
-print zip ([e.text for e in cat.findAll('h4')], [[qq.text for qq in xx[0]] for xx in zz])
+sweet = zip([e.text for e in cat.findAll('h4')], [xx[0] for xx in zz])
+print sweet[0][1][1]
+print sweet[0][1][1].nextSibling.nextSibling #.findNext('div','catesub')
+# print [[q.text for q in e[1]] for e in sweet[0]]
 
+exit(1)
 # print [[[qq.text for qq in xa] for xa in xx] for xx in zz]
 
 print "=== All links in sec 0 (recursive):"
@@ -41,8 +36,7 @@ print [e.text for e in sec[0].findAll('a')]
 print "=== structure of sec 1 (recursive):"
 print [(e.name, 'parent:' + e.parent.name) for e in sec[1].findAll()]
 print "=== All links in sec 1 (recursive):"
-zz = [zz.findAll('a') for zz in sec[1].findAll('ul') if zz.parent.name != 'ul']
-print zz
+zz = [zz.findAll('a') for zz in sec[1].findAll('ul')]
 print [[xa.text for xa in xx] for xx in zz]
 # print [e.text for e in [zz.findAll('a') for zz in z]]
 # "\n".join([e.text for e in cat.findAll('a')])
