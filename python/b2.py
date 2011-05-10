@@ -7,7 +7,27 @@ page = urllib2.urlopen(url)
 soup = BeautifulSoup(page, convertEntities=BeautifulSoup.HTML_ENTITIES)
 cat = soup.find('div', 'cateMenu')#{'id':'categories'})
 
-print cat.ul.li
+#print cat.findNext('h4').text
+#print cat.findNext('h4').text
+#print '-->' + cat.ul.li.text
+sec = cat.findAll('div', 'catesub')
+print [e.name for e in cat.findAll(recursive=False)]
+print [e.name for e in cat.div.ul.findAll(recursive=False)]
+print [e.name for e in cat.div.ul.div.div.findAll(recursive=False)]
+
+print [e.text for e in cat.findAll('h4')]
+print "=== All (non-recursive) link names in ul 0:"
+print [(e.name, e.text) for e in cat.ul.findAll('li',recursive=False)]
+print "=== All links in sec 0:"
+print [e.text for e in sec[0].findAll('a')]
+print "=== structure of sec 1 (recursive):"
+print [(e.name, 'parent:' + e.parent.name) for e in sec[1].findAll('ul')]
+print "=== All links in sec 1 (recursive):"
+zz = [zz.findAll('a') for zz in sec[1].findAll('ul')]
+print [[xa.text for xa in xx] for xx in zz]
+# print [e.text for e in [zz.findAll('a') for zz in z]]
+# "\n".join([e.text for e in cat.findAll('a')])
+
 exit(1)
 print [c.text for c in cat.findAll('h4')]
 

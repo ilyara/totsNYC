@@ -17,6 +17,7 @@ class MyDb:
         except sqlite3.OperationalError: # hmm?
             exit(1)
         self.cursor = self.conn.cursor()
+        self.cursor.execute('PRAGMA synchronous=OFF')
         self.validateDatabase()
  
     def validateDatabase(self):
