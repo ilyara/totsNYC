@@ -32,6 +32,8 @@ class Crunch:
 		- do we have an existing DB?
 		- does it have queue management tables / correct schema version?
 		"""
+		
+		self.worker = '%d/%d' % (os.getuid(),os.getpid())
 		config = ConfigParser.ConfigParser()
 		config.read(ini_file)
 		try:
@@ -44,13 +46,16 @@ class Crunch:
 		
 		import mydb
 		self.db = mydb.MyDb(db_file)
+		self.db.debug_flag = False
 		self.create_api_tables()
+		# self.admin_tasks()
 		self.register_worker()
+		self.assign_job()
 		# os.getpid(), os.getuid(), os.uname()
 		# select * from mgmt_api where sess_lastupdate < datetime('now', '-10 seconds');
 
-		sql = "SELECT tbl_name FROM sqlite_master WHERE tbl_name = 'mgmt_api'"
-		print self.db.runQuery(sql)
+		# sql = "SELECT tbl_name FROM sqlite_master WHERE tbl_name = 'mgmt_api'"
+		# print self.db.runQuery(sql)
 
 		pass
 
@@ -66,7 +71,8 @@ class Crunch:
 		sql = """CREATE TABLE mgmt_url(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		url VARCHAR(1024),
-		locad_requested DATETIME DEFAULT CURRENT_TIMESTAMP,
+		referrer VARCHAR(1024),
+		load_requested DATETIME DEFAULT CURRENT_TIMESTAMP,
 		worker VARCHAR(256),
 		load_start DATETIME,
 		load_completed DATETIME,
@@ -84,14 +90,31 @@ class Crunch:
 		status INTEGER
 		)"""
 		self.db.execSQL(sql)
-
+		
 		pass
 	
 	def register_worker(self):
-		self.db.insertData('mgmt_worker', 'worker', '%d/%d' % (os.getuid(),os.getpid()))
+		self.db.insertData('mgmt_worker', 'worker', self.worker)
+		pass
+
+	def assign_job(self):
+		# sql = "UPDATE mgmt_url SET worker = '%s' WHERE worker IS NULL LIMIT 1" % self.worker
+		sql = "UPDATE mgmt_url SET worker = '%s' WHERE id IN (SELECT id FROM mgmt_url WHERE worker IS NULL LIMIT 1)" % self.worker
+		
+		# print self.db.runQuery(sql)
+		# self.db.insertData('mgmt_worker', 'worker', '%d/%d' % (os.getuid(),os.getpid()))
+		self.db.execSQL(sql)
+		if self.db.cursor.rowcount:
+			print 'got one!'
+			sql = "SELECT * FROM mgmt_url WHERE worker = '%s'" % self.worker
+			print self.db.runQuery(sql)
+		else:
+			print 'nothing to do!'
 		pass
 		
 	def admin_tasks(self):
+		sql = """UPDATE mgmt_url SET worker = NULL"""
+		self.db.execSQL(sql)
 		pass
 		
 c = Crunch()
