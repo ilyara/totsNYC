@@ -85,6 +85,6 @@ class MyDb:
         self.conn.close()
 
     def debug(self, debugMessage):
-        pass
-        # print debugMessage
+        #pass
+        print debugMessage
         
