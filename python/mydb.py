@@ -7,6 +7,9 @@ blah blah blah
 """
  
 class MyDb:
+	
+    debug_flag = True
+
     def __init__(self, db_file_name = "test.db"):
         try:
             self.conn = sqlite3.connect(db_file_name)
@@ -43,19 +46,23 @@ class MyDb:
         except sqlite3.OperationalError as Err: # hmm?
             self.debug(Err)
             
-    def insertData(self, tableName, fieldArray, dataDict):
+    def insertData(self, tableName, fieldArray, dataList):
+        if isinstance(fieldArray, str):
+            fieldArray = [s.strip() for s in fieldArray.split(',')]
         fieldNames = ', '.join(fieldArray)
         valueString = ', '.join(['?' for x in fieldArray])
         sql = "INSERT INTO %(tableName)s(%(fieldNames)s) \nVALUES (%(valueString)s)" \
         % {'tableName': tableName, 'fieldNames': fieldNames, 'valueString': valueString}
         self.debug(sql)
-        self.debug(dataDict)
+        self.debug(dataList)
         
         try:
-            if len(dataDict) > 1:
-                self.cursor.executemany(sql, dataDict)
+            if isinstance(dataList, dict) and len(dataList) > 1:
+                self.cursor.executemany(sql, dataList)
+            elif isinstance(dataList, str):
+				self.cursor.execute(sql, [dataList])
             else:
-                self.cursor.execute(sql, dataDict[0])
+                self.cursor.execute(sql, dataList[0])
             self.conn.commit()
             return self.cursor.lastrowid
         except sqlite3.ProgrammingError as Err:
@@ -79,6 +86,13 @@ class MyDb:
         self.debug(results)
         return results
  
+    def runQuery(self, sql):
+        self.cursor.execute(sql)
+        results = self.cursor.fetchall()
+
+        self.debug(results)
+        return results
+
     def closeHandle(self):
         'Closes the connection to the database'
         self.conn.commit() # Make sure all changes are saved
@@ -86,5 +100,6 @@ class MyDb:
 
     def debug(self, debugMessage):
         #pass
-        print debugMessage
+        if self.debug_flag: 
+          print debugMessage
         

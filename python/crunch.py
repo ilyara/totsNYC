@@ -43,21 +43,52 @@ class Crunch:
 		print "Using DB: %s" % db_file
 		
 		import mydb
-		db = mydb.MyDb(db_file)
-		sql = """CREATE TABLE mgmt_api(
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		pid INTEGER,
-		name VARCHAR(50),
-		value VARCHAR(50),
-		"rc" DATETIME DEFAULT CURRENT_TIMESTAMP
-		)"""
-		db.execSQL(sql)
-		# os.getpid(), os.getuid(), os.uname()¶
+		self.db = mydb.MyDb(db_file)
+		self.create_api_tables()
+		self.register_worker()
+		# os.getpid(), os.getuid(), os.uname()
+		# select * from mgmt_api where sess_lastupdate < datetime('now', '-10 seconds');
 
+		sql = "SELECT tbl_name FROM sqlite_master WHERE tbl_name = 'mgmt_api'"
+		print self.db.runQuery(sql)
+
+		pass
+
+	def create_api_tables(self):
+		sql = """CREATE TABLE mgmt_worker(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		worker VARCHAR(256),
+		sess_start DATETIME DEFAULT CURRENT_TIMESTAMP,
+		sess_lastupdate DATETIME DEFAULT CURRENT_TIMESTAMP
+		)"""
+		self.db.execSQL(sql)
+
+		sql = """CREATE TABLE mgmt_url(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		url VARCHAR(1024),
+		locad_requested DATETIME DEFAULT CURRENT_TIMESTAMP,
+		worker VARCHAR(256),
+		load_start DATETIME,
+		load_completed DATETIME,
+		status INTEGER
+		)"""
+		self.db.execSQL(sql)
+
+		sql = """CREATE TABLE mgmt_com(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		worker VARCHAR(256),
+		com VARCHAR(1024),
+		com_response VARCHAR(1024),
+		com_created DATETIME DEFAULT CURRENT_TIMESTAMP,
+		com_completed DATETIME,
+		status INTEGER
+		)"""
+		self.db.execSQL(sql)
 
 		pass
 	
 	def register_worker(self):
+		self.db.insertData('mgmt_worker', 'worker', '%d/%d' % (os.getuid(),os.getpid()))
 		pass
 		
 	def admin_tasks(self):
