@@ -54,7 +54,7 @@ class Crunch:
 		self.admin_tasks()
 		iters = 0
 		load_completed = True
-		while load_completed and iters < 3:
+		while load_completed:
 			iters = iters + 1
 			self.register_worker()
 			id, url = self.assign_job()[0]
@@ -62,7 +62,7 @@ class Crunch:
 				load_completed = self.execute_job("http://api.crunchbase.com/v/1/company/%s.js" % url, url)
 				if load_completed:
 					s = random.randint((60 / rate_limit)*0.5, (60 / rate_limit))
-					print "sleeping for %d seconds" % s
+					# print "sleeping for %d seconds" % s
 					time.sleep(s)
 				else:
 					exit(1)
@@ -127,7 +127,7 @@ class Crunch:
 		# self.db.insertData('mgmt_worker', 'worker', '%d/%d' % (os.getuid(),os.getpid()))
 		self.db.execSQL(sql)
 		if self.db.cursor.rowcount:
-			print 'Job assigned!'
+			# print 'Job assigned!'
 			sql = "SELECT id, url FROM mgmt_url WHERE status IS NULL AND worker = '%s'" % self.worker
 			return self.db.runQuery(sql)
 		else:
@@ -141,8 +141,13 @@ class Crunch:
 		self.db.execSQL(sql)
 		if self.db.cursor.rowcount:
 			status, data = self.fetch_url(url, os.path.join(self.raw_data_dir, keyref))
+			# print "status: %s" % status
 			if status == "200 OK":
 				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = '200 OK' WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
+				self.db.execSQL(sql)
+				return time.time()
+			elif status == "HTTP Error 404: Not Found":
+				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = 'HTTP Error 404: Not Found' WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
 				self.db.execSQL(sql)
 				return time.time()
 			else:
@@ -155,10 +160,13 @@ class Crunch:
 		user_agent = 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2a1pre) Gecko/20090428 Firefox/3.6a1pre'
 		headers =  {'User-agent': user_agent, 'Accept-encoding': 'gzip', 'Referer': url}
 		data = None
-
-		request = urllib2.Request(url, data, headers)
-		response = urllib2.urlopen(request)
-#		print response.info()
+		try:
+			request = urllib2.Request(url, data, headers)
+			response = urllib2.urlopen(request)
+			# print response.info()
+		except urllib2.HTTPError as Err:
+			print Err
+			return Err, None
 		status = response.headers.get('Status')
 		if response.info().get('Content-Encoding') == 'gzip':
 		    buf = StringIO(response.read())
