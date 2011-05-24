@@ -146,13 +146,13 @@ class Crunch:
 				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = '200 OK' WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
 				self.db.execSQL(sql)
 				return time.time()
-			elif status == "HTTP Error 404: Not Found":
-				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = 'HTTP Error 404: Not Found' WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
+			else:
+				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = '%s' WHERE url = '%s' AND worker = '%s'" % (status, keyref, self.worker)
 				self.db.execSQL(sql)
 				return time.time()
-			else:
-				print "terminating..."
-				return False
+#			else:
+#				print "terminating..."
+#				return False
 
 	def fetch_url(self, url, filename):
 		print "will save %s to %s" % (url, filename)
