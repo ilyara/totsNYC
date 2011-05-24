@@ -22,7 +22,7 @@ LifeCycle:
 - continue with task assignment/execution
 
 """
-import json, ConfigParser, os, urllib2, gzip, time
+import json, ConfigParser, os, urllib2, gzip, time, random
 from StringIO import StringIO
 
 class Crunch:
@@ -61,8 +61,9 @@ class Crunch:
 			if url:
 				load_completed = self.execute_job("http://api.crunchbase.com/v/1/company/%s.js" % url, url)
 				if load_completed:
-					print "sleeping for %d seconds" % (60 / rate_limit)
-					time.sleep(60 / rate_limit)
+					s = random.randint((60 / rate_limit)*0.5, (60 / rate_limit))
+					print "sleeping for %d seconds" % s
+					time.sleep(s)
 				else:
 					exit(1)
 		
