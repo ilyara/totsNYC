@@ -52,10 +52,19 @@ class Crunch:
 		self.db.debug_flag = False
 		self.create_api_tables()
 		self.admin_tasks()
-		self.register_worker()
-		id, url = self.assign_job()[0]
-		if url:
-			self.execute_job("http://api.crunchbase.com/v/1/company/%s.js" % url, url)
+		iters = 0
+		load_completed = True
+		while load_completed and iters < 3:
+			iters = iters + 1
+			self.register_worker()
+			id, url = self.assign_job()[0]
+			if url:
+				load_completed = self.execute_job("http://api.crunchbase.com/v/1/company/%s.js" % url, url)
+				if load_completed:
+					print "sleeping for %d seconds" % (60 / rate_limit)
+					time.sleep(60 / rate_limit)
+				else:
+					exit(1)
 		
 		#self.load_tc_companies()
 		
@@ -118,7 +127,7 @@ class Crunch:
 		self.db.execSQL(sql)
 		if self.db.cursor.rowcount:
 			print 'Job assigned!'
-			sql = "SELECT id, url FROM mgmt_url WHERE worker = '%s'" % self.worker
+			sql = "SELECT id, url FROM mgmt_url WHERE status IS NULL AND worker = '%s'" % self.worker
 			return self.db.runQuery(sql)
 		else:
 			print 'nothing to do!'
@@ -127,15 +136,14 @@ class Crunch:
 		
 	def execute_job(self, url, keyref):
 		print "retrieving %s" % url
-		sql = "UPDATE mgmt_url SET load_start = datetime('now') WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
+		sql = "UPDATE mgmt_url SET load_start = datetime('now') WHERE status IS NULL AND url = '%s' AND worker = '%s'" % (keyref, self.worker)
 		self.db.execSQL(sql)
 		if self.db.cursor.rowcount:
 			status, data = self.fetch_url(url, os.path.join(self.raw_data_dir, keyref))
 			if status == "200 OK":
 				sql = "UPDATE mgmt_url SET load_completed = datetime('now'), status = '200 OK' WHERE url = '%s' AND worker = '%s'" % (keyref, self.worker)
 				self.db.execSQL(sql)
-				print time.time()
-				return True
+				return time.time()
 			else:
 				print "terminating..."
 				return False
