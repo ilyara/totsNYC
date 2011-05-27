@@ -81,7 +81,7 @@ class Crunch:
 		
 		import mydb
 		self.db = mydb.MyDb(db_file)
-		self.db.debug_flag = True
+		self.db.debug_flag = False
 		self.create_api_tables()
 		self.admin_tasks()
 		iters = 0
@@ -256,9 +256,9 @@ class Crunch:
 
 	def load_tc_list(self, file, url_mask, url_field='permalink', keyref_field='permalink'):
 		page = open(file, 'r')
-		print "loading tc people"
+		print "loading tc %s" % self.op
 		c = json.loads(page.read())
-		print "loaded %d people" % len(c)
+		print "loaded %d %s" % (len(c), self.op)
 		tc_fields = c[0].keys()
 		tc_values = [(url_mask % i[url_field], i[keyref_field]) for i in c]
 		print tc_fields
