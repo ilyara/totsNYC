@@ -1,5 +1,6 @@
 """
 Crunchbase API test
+5/27/2011
 
 - uses settings from config file
 - responds to commands (using db table as queue)
@@ -22,11 +23,16 @@ LifeCycle:
 - continue with task assignment/execution
 
 """
-import json, ConfigParser, os, urllib2, gzip, time, random
+import json, ConfigParser, os, sys, urllib2, gzip, time, random
 from StringIO import StringIO
+from getopt import gnu_getopt, GetoptError
 
 class Crunch:
-	def __init__(self, ini_file = "crunch.ini", db_file = "test.db"):
+
+	ops = 'companies, people, products, financial-organizations, service-providers'
+	op = 'dryrun'
+	
+	def __init__(self, ini_file = "crunch.ini", db_file = "test.db", crunch_out_dir = '/tmp'):
 		"""
 		Things to check:
 		- do we have a readable ini file?
@@ -38,14 +44,29 @@ class Crunch:
 		config = ConfigParser.ConfigParser()
 		config.read(ini_file)
 		try:
-			db_file = config.get("Config", "DBFile")
-			self.raw_data_dir = config.get("Config", "RawDataDir")
+			crunch_out_dir = config.get("Common", "CrunchOutDir")
+			db_file = os.path.join(crunch_out_dir, config.get("Config", "DBFile"))
+			self.raw_data_dir = os.path.join(crunch_out_dir, config.get("Config", "RawDataDir"))
 			rate_limit = int(config.get("Config", "RateLimit"))
 		except ConfigParser.NoSectionError: # config file or section does not exist
-			# default values
-			pass
+			pass 							# using default values
+
+		if sys.argv[1:2] and sys.argv[1:2][0] in [i.strip() for i in self.ops.split(',')]:
+			self.op = sys.argv[1:2][0] 
+			try:
+				db_file = os.path.join(crunch_out_dir, config.get(self.op, "DBFile"))
+				self.raw_data_dir = os.path.join(crunch_out_dir, config.get(self.op, "RawDataDir"))
+				self.list_file = config.get(self.op, "ListFile")
+				self.singular = config.get(self.op, "Singular")
+			except ConfigParser.NoSectionError: # config file or section does not exist
+				pass
+
+		print "Pricessing: %s" % self.op
 		print "Using DB: %s" % db_file
 		print "Rate Limit: %d" % rate_limit
+
+		if not os.path.isfile(db_file):
+			print "%s not found" % db_file 
 		
 		import mydb
 		self.db = mydb.MyDb(db_file)
@@ -53,7 +74,7 @@ class Crunch:
 		self.create_api_tables()
 		self.admin_tasks()
 		iters = 0
-		load_completed = True
+		load_completed = False
 		while load_completed:
 			iters = iters + 1
 			self.register_worker()
@@ -69,7 +90,12 @@ class Crunch:
 			else:
 				exit(1)
 		
-		# self.load_tc_people()
+		if self.op != 'dryrun':
+			print 'click'
+			url_mask = "http://api.crunchbase.com/v/1/%s" % self.singular + "/%s.js"
+			self.load_tc_list(self.list_file, url_mask)
+		else:
+			print 'crap'
 		
 		# os.getpid(), os.getuid(), os.uname()
 		# select * from mgmt_api where sess_lastupdate < datetime('now', '-10 seconds');
@@ -212,17 +238,16 @@ class Crunch:
 		print tc_values[0]
 		self.db.insertData('mgmt_url', 'url, keyref', tc_values)
 
-	def load_tc_people(self):
-		file = '/home/ec2-user/Development/hiertest/crunchbase/people05232011.js'
+	def load_tc_list(self, file, url_mask, url_field='permalink', keyref_field='permalink'):
 		page = open(file, 'r')
 		print "loading tc people"
 		c = json.loads(page.read())
 		print "loaded %d people" % len(c)
 		tc_fields = c[0].keys()
-		tc_values = [(i['permalink'], ) for i in c]
+		tc_values = [(url_mask % i[url_field], i[keyref_field]) for i in c]
 		print tc_fields
 		print tc_values[0]
-		self.db.insertData('mgmt_url', 'url', tc_values)
+		self.db.insertData('mgmt_url', 'url, keyref', tc_values)
 		
 		pass
 		
