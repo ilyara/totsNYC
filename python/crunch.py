@@ -59,15 +59,17 @@ class Crunch:
 			self.register_worker()
 			id, url = self.assign_job()[0]
 			if url:
-				load_completed = self.execute_job("http://api.crunchbase.com/v/1/company/%s.js" % url, url)
+				load_completed = self.execute_job("http://api.crunchbase.com/v/1/person/%s.js" % url, url)
 				if load_completed:
-					s = random.randint((60 / rate_limit)*0.5, (60 / rate_limit))
-					# print "sleeping for %d seconds" % s
+					s = 1
+					print "sleeping for %d seconds" % s
 					time.sleep(s)
 				else:
 					exit(1)
+			else:
+				exit(1)
 		
-		#self.load_tc_companies()
+		# self.load_tc_people()
 		
 		# os.getpid(), os.getuid(), os.uname()
 		# select * from mgmt_api where sess_lastupdate < datetime('now', '-10 seconds');
@@ -155,7 +157,7 @@ class Crunch:
 #				return False
 
 	def fetch_url(self, url, filename):
-		print "will save %s to %s" % (url, filename)
+		# print "will save %s to %s" % (url, filename)
 
 		user_agent = 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2a1pre) Gecko/20090428 Firefox/3.6a1pre'
 		headers =  {'User-agent': user_agent, 'Accept-encoding': 'gzip', 'Referer': url}
@@ -199,7 +201,7 @@ class Crunch:
 		pass
 
 	def load_tc_companies(self):
-		file = '/Users/ilya/Development/hiertest/crunchbase/companies.js'
+		file = '/home/ec2-user/Development/hiertest/crunchbase/companies.js'
 		page = open(file, 'r')
 		print "loading tc companies"
 		c = json.loads(page.read())
@@ -209,6 +211,18 @@ class Crunch:
 		print tc_fields
 		print tc_values[0]
 		self.db.insertData('mgmt_url', 'url, keyref', tc_values)
+
+	def load_tc_people(self):
+		file = '/home/ec2-user/Development/hiertest/crunchbase/people05232011.js'
+		page = open(file, 'r')
+		print "loading tc people"
+		c = json.loads(page.read())
+		print "loaded %d people" % len(c)
+		tc_fields = c[0].keys()
+		tc_values = [(i['permalink'], ) for i in c]
+		print tc_fields
+		print tc_values[0]
+		self.db.insertData('mgmt_url', 'url', tc_values)
 		
 		pass
 		

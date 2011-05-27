@@ -57,7 +57,7 @@ class MyDb:
         self.debug(dataList)
         
         try:
-            print "got a %s of length %d" % (type(dataList).__name__, len(dataList))
+            # print "got a %s of length %d" % (type(dataList).__name__, len(dataList))
             if isinstance(dataList, list) and len(dataList) > 1:
                 print "executemany"
                 self.cursor.executemany(sql, dataList)
