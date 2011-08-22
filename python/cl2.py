@@ -10,7 +10,15 @@ def q(e):
 def l(s):
   return [x.a.text for x in s.findNextSibling("ul").findAll("li")]
 
-file = '/Users/ilya/Desktop/Craigslist/sites.html'
+def walk(l):
+	if isinstance(l, list): # or isinstance(l, tuple):
+		print "a list of %d items:" % len(l)
+		for i in l:
+			walk(i)
+	else:
+		print l
+
+file = '/Users/ilya/Development/hiertest/craigslist/sites.html'
 page = open(file, 'r')
 soup = BeautifulSoup(page, convertEntities=BeautifulSoup.HTML_ENTITIES)
 # print soup
@@ -23,8 +31,8 @@ lst = [(c.find('h1', 'continent_header').text, c.find('h1', 'continent_header').
         for s in c('div', 'state_delimiter')]
       )
       for c in soup('div', 'colmask')]
-print json.dumps(lst)
-
+print json.dumps(lst[0], indent=4)
+# walk(lst)
 exit(1)
 
 span = pdtl[0].span.text

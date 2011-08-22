@@ -1,0 +1,32 @@
+Data Modeling
+
+
+table: sdeposit
+(money in the bank)
+payor
+payee
+balance
+
+table: journal
+
+table: account
+
+table: atype
+(account type)
+
+table: sdrequest
+(request for a specific SD transaction)
+
+sender_id
+recepient_id
+amount
+status
+
+table: tmessage
+(transactional messages related to an SD)
+
+table: ttype
+(transaction types)
+request to provide an SD
+request to accept an SD
+notification
