@@ -1,3 +1,5 @@
 python/*.pyc
 *.db
 python/nohup.out
+*.sqlite3
+totsnyc/db/development.sqlite3
