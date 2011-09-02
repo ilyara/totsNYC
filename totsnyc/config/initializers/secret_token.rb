@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Totsnyc::Application.config.secret_token = 'b110a357e08a65e96618bc56fb3d8494a8dd705b62a6e85c312ebcd7248bdaf93d8745c6994fcd9b130942f8b5e692accc25c2794025d5d810a6efb0c3147936'
+Totsnyc::Application.config.secret_token = '4917b4235099f4d1a727f348d87401cb265484a2737e1e872db0d43f4dea6b5e4df6dd6e027b40b0dacaa3e657ca507ec366682590675f46dbd5c7fcff1f941d'
