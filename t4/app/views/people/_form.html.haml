@@ -1,0 +1,16 @@
+= form_for @person do |f|
+  -if @person.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
+      %ul
+        - @person.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :nick
+    = f.text_field :nick
+  .field
+    = f.label :role
+    = f.select :role, Role.all.map {|r| [r.name, r.id]}, :selected => @person.role_id, :prompt => 'Select type'
+  .actions
+    = f.submit 'Save'

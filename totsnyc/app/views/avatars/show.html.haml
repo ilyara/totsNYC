@@ -1,0 +1,24 @@
+- title "Avatar"
+
+%p
+  %strong Name:
+  = @avatar.name
+%p
+  %strong Img Url:
+  = @avatar.img_url
+%p
+  %strong Age Group:
+  = @avatar.age_group
+%p
+  %strong Location Name:
+  = @avatar.location_name
+%p
+  %strong Role:
+  = @avatar.role
+
+%p
+  = link_to "Edit", edit_avatar_path(@avatar)
+  |
+  = link_to "Destroy", @avatar, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", avatars_path

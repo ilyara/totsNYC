@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Phone:
+  = @call_log.phone
+%p
+  %b Start time:
+  = @call_log.start_time
+%p
+  %b End time:
+  = @call_log.end_time
+%p
+  %b Comments:
+  = @call_log.comments
+
+= link_to 'Edit', edit_call_log_path(@call_log)
+\|
+= link_to 'Back', call_logs_path

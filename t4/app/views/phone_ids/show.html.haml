@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Number:
+  = @phone_id.number
+
+= link_to 'Edit', edit_phone_id_path(@phone_id)
+\|
+= link_to 'Back', phone_ids_path

@@ -1,0 +1,27 @@
+# Data Model for totsNYC
+# 
+
+Person
+name, email, role
+Profile
+Household
+Relation
+PhoneID
+number, person
+Role
+name
+CallRecord
+phone, callstart:datetime, actions
+PlayDate
+location, datetime
+Signup
+playdate, person
+Tag
+name, category
+Tagging
+tag, play_date
+Location
+name, type
+Message
+originator, destination/type, text, attachment, datetime
+Photo

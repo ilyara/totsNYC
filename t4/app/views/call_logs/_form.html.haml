@@ -1,0 +1,22 @@
+= form_for @call_log do |f|
+  -if @call_log.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@call_log.errors.count, "error")} prohibited this call_log from being saved:"
+      %ul
+        - @call_log.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .field
+    = f.label :start_time
+    = f.datetime_select :start_time
+  .field
+    = f.label :end_time
+    = f.datetime_select :end_time
+  .field
+    = f.label :comments
+    = f.text_field :comments
+  .actions
+    = f.submit 'Save'

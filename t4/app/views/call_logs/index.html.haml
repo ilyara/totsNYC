@@ -1,0 +1,25 @@
+%h1 Listing call_logs
+
+%table
+  %tr
+    %th Phone
+    %th Start time
+    %th End time
+    %th Comments
+    %th
+    %th
+    %th
+
+  - @call_logs.each do |call_log|
+    %tr
+      %td= call_log.phone
+      %td= call_log.start_time
+      %td= call_log.end_time
+      %td= call_log.comments
+      %td= link_to 'Show', call_log
+      %td= link_to 'Edit', edit_call_log_path(call_log)
+      %td= link_to 'Destroy', call_log, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Call log', new_call_log_path

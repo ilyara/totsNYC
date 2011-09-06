@@ -1,0 +1,21 @@
+- title "Avatars"
+
+%table
+  %tr
+    %th Name
+    %th Img url
+    %th Age group
+    %th Location name
+    %th Role
+  - for avatar in @avatars
+    %tr
+      %td= avatar.name
+      %td= avatar.img_url
+      %td= avatar.age_group
+      %td= avatar.location_name
+      %td= avatar.role
+      %td= link_to 'Show', avatar
+      %td= link_to 'Edit', edit_avatar_path(avatar)
+      %td= link_to 'Destroy', avatar, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Avatar", new_avatar_path

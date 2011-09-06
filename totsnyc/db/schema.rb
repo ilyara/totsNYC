@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311212614) do
+ActiveRecord::Schema.define(:version => 20110902154755) do
+
+  create_table "avatars", :force => true do |t|
+    t.string   "name"
+    t.string   "img_url"
+    t.string   "age_group"
+    t.string   "location_name"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -51,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20110311212614) do
     t.integer  "georef"
   end
 
-  create_table "persons", :force => true do |t|
+  create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.datetime "created_at"
@@ -95,6 +106,12 @@ ActiveRecord::Schema.define(:version => 20110311212614) do
     t.integer  "created_by"
     t.integer  "person_id"
     t.integer  "event_id",   :null => false
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|

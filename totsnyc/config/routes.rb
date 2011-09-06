@@ -1,4 +1,8 @@
 Totsnyc::Application.routes.draw do
+  resources :roles
+
+  resources :avatars
+
   resources :kukas
 
   resources :kukus

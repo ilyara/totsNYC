@@ -1,0 +1,24 @@
+= form_for @avatar do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :img_url
+    %br
+    = f.text_field :img_url
+  %p
+    = f.label :age_group
+    %br
+    = f.text_field :age_group
+  %p
+    = f.label :location_name
+    %br
+    = f.text_field :location_name
+  %p
+    = f.label :role
+    %br
+    = f.select(:role_id, @roles)
+  %p
+    = f.submit

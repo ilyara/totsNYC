@@ -1,0 +1,19 @@
+%h1 Listing phone_ids
+
+%table
+  %tr
+    %th Number
+    %th
+    %th
+    %th
+
+  - @phone_ids.each do |phone_id|
+    %tr
+      %td= phone_id.number
+      %td= link_to 'Show', phone_id
+      %td= link_to 'Edit', edit_phone_id_path(phone_id)
+      %td= link_to 'Destroy', phone_id, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Phone', new_phone_id_path
