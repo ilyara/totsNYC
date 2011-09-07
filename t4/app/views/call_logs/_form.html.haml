@@ -7,14 +7,13 @@
           %li= msg
 
   .field
-    = f.label :phone
-    = f.text_field :phone
+    = f.label @call_log.phone_id.number
   .field
     = f.label :start_time
     = f.datetime_select :start_time
   .field
-    = f.label :end_time
-    = f.datetime_select :end_time
+    = f.label :duration
+    = f.text_field :duration
   .field
     = f.label :comments
     = f.text_field :comments

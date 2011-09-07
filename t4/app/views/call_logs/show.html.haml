@@ -1,14 +1,14 @@
-%p#notice= notice
+=# %p#notice= notice
 
 %p
   %b Phone:
-  = @call_log.phone
+  = @call_log.phone_id.number
 %p
   %b Start time:
-  = @call_log.start_time
+  = @call_log.start_time.getlocal
 %p
-  %b End time:
-  = @call_log.end_time
+  %b Duration:
+  = @call_log.duration
 %p
   %b Comments:
   = @call_log.comments

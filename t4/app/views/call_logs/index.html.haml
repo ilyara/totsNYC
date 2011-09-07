@@ -4,7 +4,7 @@
   %tr
     %th Phone
     %th Start time
-    %th End time
+    %th Duration
     %th Comments
     %th
     %th
@@ -12,9 +12,9 @@
 
   - @call_logs.each do |call_log|
     %tr
-      %td= call_log.phone
-      %td= call_log.start_time
-      %td= call_log.end_time
+      %td= call_log.phone_id.number
+      %td= call_log.start_time.getlocal.asctime
+      %td= call_log.duration
       %td= call_log.comments
       %td= link_to 'Show', call_log
       %td= link_to 'Edit', edit_call_log_path(call_log)

@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  phone: 
-  start_time: 2011-09-06 19:37:33
-  end_time: 2011-09-06 19:37:33
+  phone_id: 
+  start_time: 2011-09-07 18:57:07
+  duration: 
   comments: MyString
 
 two:
-  phone: 
-  start_time: 2011-09-06 19:37:33
-  end_time: 2011-09-06 19:37:33
+  phone_id: 
+  start_time: 2011-09-07 18:57:07
+  duration: 
   comments: MyString

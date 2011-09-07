@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110906233730) do
+ActiveRecord::Schema.define(:version => 20110907223205) do
 
   create_table "call_logs", :force => true do |t|
-    t.integer  "phone_id"
+    t.integer  "phone_id_id"
     t.datetime "start_time"
-    t.datetime "end_time"
     t.string   "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration"
   end
 
-  add_index "call_logs", ["phone_id"], :name => "index_call_logs_on_phone_id"
+  add_index "call_logs", ["phone_id_id"], :name => "index_call_logs_on_phone_id"
 
   create_table "locations", :force => true do |t|
     t.string   "name"
@@ -47,7 +47,41 @@ ActiveRecord::Schema.define(:version => 20110906233730) do
     t.datetime "updated_at"
   end
 
+  create_table "play_dates", :force => true do |t|
+    t.string   "name"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "play_dates", ["location_id"], :name => "index_play_dates_on_location_id"
+
   create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "signups", :force => true do |t|
+    t.integer  "playdate_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "signups", ["person_id"], :name => "index_signups_on_person_id"
+  add_index "signups", ["playdate_id"], :name => "index_signups_on_playdate_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.string   "obj"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+
+  create_table "tags", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

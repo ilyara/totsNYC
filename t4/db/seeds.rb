@@ -6,11 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 puts 'Seeding...'
-Role.delete_all
-Person.delete_all
-Location.delete_all
-roles = Role.create([{ name: 'Parent' }, { name: 'Child' }])
-Person.create(nick: 'Ilya', role: roles.first)
-Location.create([{name: 'Tots Playground', latitude: '40.77332', longitude: '-73.976974'},
-{name: 'Rudin Family Playground', latitude: '40.7916396', longitude: '-73.9647091'}
-])
+# Role.delete_all
+# Person.delete_all
+# Location.delete_all
+# roles = Role.create([{ name: 'Parent' }, { name: 'Child' }])
+# Person.create(nick: 'Ilya', role: roles.first)
+# Location.create([{name: 'Tots Playground', latitude: '40.77332', longitude: '-73.976974'},
+# {name: 'Rudin Family Playground', latitude: '40.7916396', longitude: '-73.9647091'}
+# ])
+PhoneId.create([{number: '12124897820'}, {number: '16466427820'}])
