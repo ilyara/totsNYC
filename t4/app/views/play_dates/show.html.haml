@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @play_date.name
+%p
+  %b Location:
+  = @play_date.location
+
+= link_to 'Edit', edit_play_date_path(@play_date)
+\|
+= link_to 'Back', play_dates_path

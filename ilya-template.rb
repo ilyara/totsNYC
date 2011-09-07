@@ -5,8 +5,12 @@ gem 'haml-rails', :group => :development
 gem 'nifty-generators', :group => :development
 generate(:controller, 'home index')
 route "root :to => 'home#index'"
-generate('scaffold', 'Role name:string')
 generate('scaffold', 'Person nick:string role:references')
+generate('scaffold', 'Role name:string')
+generate('scaffold', 'Tag name:string')
+generate('scaffold', 'Tagging tag:references obj:string')
+generate('scaffold', 'PlayDate name:string location:references')
+generate('scaffold', 'Signup playdate:references person:references')
 generate('scaffold', 'CallLog phone:references start_time:datetime end_time:datetime comments:string')
 generate('scaffold', 'PhoneId number:string')
 generate('scaffold', 'Location name:string latitude:float longitude:float')

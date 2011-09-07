@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Playdate:
+  = @signup.playdate
+%p
+  %b Person:
+  = @signup.person
+
+= link_to 'Edit', edit_signup_path(@signup)
+\|
+= link_to 'Back', signups_path

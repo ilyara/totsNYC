@@ -1,0 +1,21 @@
+%h1 Listing taggings
+
+%table
+  %tr
+    %th Tag
+    %th Obj
+    %th
+    %th
+    %th
+
+  - @taggings.each do |tagging|
+    %tr
+      %td= tagging.tag
+      %td= tagging.obj
+      %td= link_to 'Show', tagging
+      %td= link_to 'Edit', edit_tagging_path(tagging)
+      %td= link_to 'Destroy', tagging, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Tagging', new_tagging_path

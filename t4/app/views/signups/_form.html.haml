@@ -1,0 +1,16 @@
+= form_for @signup do |f|
+  -if @signup.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@signup.errors.count, "error")} prohibited this signup from being saved:"
+      %ul
+        - @signup.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :playdate
+    = f.text_field :playdate
+  .field
+    = f.label :person
+    = f.text_field :person
+  .actions
+    = f.submit 'Save'

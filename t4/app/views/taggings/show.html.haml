@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Tag:
+  = @tagging.tag
+%p
+  %b Obj:
+  = @tagging.obj
+
+= link_to 'Edit', edit_tagging_path(@tagging)
+\|
+= link_to 'Back', taggings_path

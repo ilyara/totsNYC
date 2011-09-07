@@ -1,0 +1,21 @@
+%h1 Listing play_dates
+
+%table
+  %tr
+    %th Name
+    %th Location
+    %th
+    %th
+    %th
+
+  - @play_dates.each do |play_date|
+    %tr
+      %td= play_date.name
+      %td= play_date.location
+      %td= link_to 'Show', play_date
+      %td= link_to 'Edit', edit_play_date_path(play_date)
+      %td= link_to 'Destroy', play_date, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Play date', new_play_date_path

@@ -1,0 +1,16 @@
+= form_for @tagging do |f|
+  -if @tagging.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tagging.errors.count, "error")} prohibited this tagging from being saved:"
+      %ul
+        - @tagging.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :tag
+    = f.text_field :tag
+  .field
+    = f.label :obj
+    = f.text_field :obj
+  .actions
+    = f.submit 'Save'

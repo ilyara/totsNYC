@@ -1,4 +1,12 @@
 T4::Application.routes.draw do
+  resources :signups
+
+  resources :play_dates
+
+  resources :taggings
+
+  resources :tags
+
   resources :phone_ids
 
   resources :call_logs
