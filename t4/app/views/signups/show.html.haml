@@ -2,10 +2,10 @@
 
 %p
   %b Playdate:
-  = @signup.playdate
+  = @signup.play_date.name
 %p
   %b Person:
-  = @signup.person
+  = @signup.person.nick
 
 = link_to 'Edit', edit_signup_path(@signup)
 \|

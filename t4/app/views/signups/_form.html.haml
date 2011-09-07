@@ -7,10 +7,10 @@
           %li= msg
 
   .field
-    = f.label :playdate
-    = f.text_field :playdate
+    = f.label :play_date
+    = f.collection_select :play_date_id, PlayDate.all, :id, :name
   .field
     = f.label :person
-    = f.text_field :person
+    = f.collection_select :person_id, Person.all, :id, :nick
   .actions
     = f.submit 'Save'

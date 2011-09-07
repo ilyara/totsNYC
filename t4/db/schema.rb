@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110907223205) do
+ActiveRecord::Schema.define(:version => 20110907235351) do
 
   create_table "call_logs", :force => true do |t|
     t.integer  "phone_id_id"
@@ -63,14 +63,14 @@ ActiveRecord::Schema.define(:version => 20110907223205) do
   end
 
   create_table "signups", :force => true do |t|
-    t.integer  "playdate_id"
+    t.integer  "play_date_id"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "signups", ["person_id"], :name => "index_signups_on_person_id"
-  add_index "signups", ["playdate_id"], :name => "index_signups_on_playdate_id"
+  add_index "signups", ["play_date_id"], :name => "index_signups_on_playdate_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

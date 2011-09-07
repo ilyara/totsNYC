@@ -11,7 +11,7 @@
   - @play_dates.each do |play_date|
     %tr
       %td= play_date.name
-      %td= play_date.location
+      %td= play_date.location.name
       %td= link_to 'Show', play_date
       %td= link_to 'Edit', edit_play_date_path(play_date)
       %td= link_to 'Destroy', play_date, :confirm => 'Are you sure?', :method => :delete
