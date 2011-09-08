@@ -1,3 +1,5 @@
+- content_for :footer do
+  test footer
 !!!
 %html
 
@@ -19,3 +21,14 @@
         %h1= yield(:title)
 
       = yield
+
+      #main
+        #splash_header
+          #splash_header_right= yield :splash_header_right
+          #splash_header_left= yield :splash_header_left
+          #splash_header_middle= yield :splash_header_middle
+        #main_layout
+          #main_c1= yield :main_c1
+          #main_c2= yield :main_c2
+          #main_c3= yield :main_c3
+      #footer= yield :footer
