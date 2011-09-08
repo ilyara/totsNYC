@@ -1,0 +1,49 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    -moz-box-shadow: 0 15px 15px white;
+//    background: #ABC repeat-x scroll left top transparent;
+    background-color: #ABCDEF;
+    height: 61px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 15;
+}
+
+#header_interior {
+    margin: auto;
+    text-align: left;
+    width: 1040px;
+}
+ 
+#splash_header_right {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background: none repeat scroll 0 0 #F1F7FD;
+    float: right;
+    margin-top: -45px;
+    padding: 50px 30px 30px;
+    width: 340px;
+}
+
+#container {
+    margin: auto;
+    padding: 90px 0 25px;
+    position: relative;
+    text-align: left;
+    width: 1040px;
+}
+
+body {
+    color: #2D2D2D;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+
+#notice {
+  color: green; }

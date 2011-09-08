@@ -1,5 +1,18 @@
+- content_for :header_interior do
+  test header_interior
+  #header_right= 'hr'
+  #header_left
+    hl
+    #header_logo
+      <img src="/assets/header_logo_totsNYC.png">
 - content_for :footer do
   test footer
+- content_for :splash_header_right do
+  test splash_header_right
+- content_for :splash_header_left do
+  test splash_header_left
+- content_for :splash_header_middle do
+  test splash_header_middle
 !!!
 %html
 
@@ -13,6 +26,8 @@
     = yield(:head)
 
   %body
+    #header
+      #header_interior= yield :header_interior
     #container
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
@@ -20,15 +35,13 @@
       - if show_title?
         %h1= yield(:title)
 
-      = yield
-
       #main
         #splash_header
           #splash_header_right= yield :splash_header_right
           #splash_header_left= yield :splash_header_left
           #splash_header_middle= yield :splash_header_middle
         #main_layout
-          #main_c1= yield :main_c1
+          #main_c1= yield
           #main_c2= yield :main_c2
           #main_c3= yield :main_c3
       #footer= yield :footer
