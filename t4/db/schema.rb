@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20110907235351) do
   end
 
   add_index "call_logs", ["phone_id_id"], :name => "index_call_logs_on_phone_id"
+  add_index "call_logs", ["phone_id_id"], :name => "index_call_logs_on_phone_id_id"
 
   create_table "locations", :force => true do |t|
     t.string   "name"
