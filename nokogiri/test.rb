@@ -31,7 +31,7 @@ SQL
 end
 
 
-def fetch_url()
+def fetch_url(url='http://www.ruby-doc.org/core/classes/Bignum.html')
   headers = {
   'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1',
   'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -40,7 +40,6 @@ def fetch_url()
   'Accept-Charset' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
   }
 
-  url = 'http://www.ruby-doc.org/core/classes/Bignum.html'
   res = open(url, headers)
   puts res.meta
   puts res.status[0]
@@ -50,13 +49,16 @@ def fetch_url()
   else
     body = Zlib::GzipReader.new(res).read
   end
+  
+  body
 end
 
 
 file_location = './content/cl/cl1.html'
-
 file = File.open(File.expand_path(file_location), "r")
 contents = file.read
+
+contents = fetch_url('http://newyork.craigslist.org/mnh/sub/')
 
 doc = Nokogiri::HTML(contents)
 puts doc.at_css("title").text
