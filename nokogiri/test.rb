@@ -3,14 +3,17 @@ require 'nokogiri'
 require 'open-uri'  
 require 'sqlite3'
 
+LIVE_FLAG = false
+
 class MyDB
   attr_reader :db
   def initialize(db_path="dev.sqlite3")
     @db = SQLite3::Database.new(db_path)
+    # drop table if exists refs;
     create_sql = <<SQL
-        drop table refs;
         create table if not exists refs (id integer primary key, cl_url string, cl_description string, cl_area string);
         create unique index if not exists idx_refs on refs(cl_url);
+        create table if not exists transfers (id integer primary key, ref_id integer, cl_id string, time_start datetime, status string);
 SQL
     @db.execute_batch create_sql
     @db.execute "PRAGMA journal_mode=MEMORY"
@@ -51,7 +54,7 @@ def fetch_url(url='http://www.ruby-doc.org/core/classes/Bignum.html')
     body = Zlib::GzipReader.new(res).read
   end
   
-  body
+  [body, res.status[0]]
 end
 
 def page_process(contents)
@@ -71,35 +74,57 @@ def page_process(contents)
   [links, pagination]
 end
 
+def load_up
+  file_location = './content/cl/cl1.html'
+  file = File.open(File.expand_path(file_location), "r")
 
-file_location = './content/cl/cl1.html'
-file = File.open(File.expand_path(file_location), "r")
+  start_url = 'http://newyork.craigslist.org/mnh/sub/'
+  url = start_url
 
-start_url = 'http://newyork.craigslist.org/mnh/sub/'
-url = start_url
+  contents = file.read
 
-contents = file.read
+  mydb = MyDB.new
+  pagination = ''
+  while pagination do
+    puts "in cycle"
+    sleep 3
+    puts "fetching #{url}" if LIVE_FLAG
+    contents = fetch_url(url)[0] if @live_flag
+    links, pagination = page_process(contents)
+    sql = 'select * from refs where cl_url in (?, ?)'
+    rows = mydb.db.execute sql, links.first[0], links.last[0]
 
-mydb = MyDB.new
-pagination = ''
-while pagination do
-  puts "in cycle"
-  sleep 3
-  # contents = fetch_url(url)
-  links, pagination = page_process(contents)
-  sql = 'select * from refs where cl_url in (?, ?)'
-  rows = mydb.db.execute sql, links.first[0], links.last[0]
-
-  if rows.count == 2
-    puts "these links are all there - nothing to do" 
-  elsif rows.count == 1
-    puts "some links on this page need to be processed, but go no further"
-  else
-    puts "processing #{links.count} links"
-    f = %w'cl_url cl_description cl_area'
-    mydb.bulk_insert f, links
+    puts "links: #{links.first[0]}, #{links.last[0]}"
+    puts "rows: #{rows}"
+    if rows.count == 2
+      puts "these links are all there - nothing to do"
+      pagination = nil 
+  #  elsif rows.count == 1
+  #    puts "some links on this page need to be processed, but go further"
+    else
+      puts "saveing #{links.count} links"
+      f = %w'cl_url cl_description cl_area'
+      mydb.bulk_insert f, links
   
-    puts "found pagination link: #{start_url}#{pagination}" if pagination
-    url = "#{start_url}#{pagination}"
+      puts "found pagination link: #{start_url}#{pagination}" if pagination
+      url = "#{start_url}#{pagination}"
+    end
+    links = nil
   end
 end
+
+def transfer_listings
+  file_location = './content/cl/'
+  mydb = MyDB.new
+  sql = 'select r.id, cl_url from refs r left join transfers t on r.id = t.ref_id where t.id is null limit 10;'
+  rows = mydb.db.execute sql
+  rows.each do |row|
+    cl_id = row[1].split(%r{\/|\.})[-2]
+    puts cl_id
+    listing_body, fetch_status = fetch_url(row[1]) if LIVE_FLAG 
+    File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write(listing_body)} if fetch_status == 200
+  end
+  # File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write "hello\n"}
+end
+
+transfer_listings

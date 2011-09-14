@@ -3,7 +3,7 @@ require 'sqlite3'
 
 class MyDB
   
-  def initialize(db_path="dev.sqlite3")
+  def initialize(db_path="delme.sqlite3")
     puts "initializing"
     @db = SQLite3::Database.new(db_path)
     create_sql = <<SQL
