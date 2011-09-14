@@ -1,45 +1,45 @@
+
 require 'test_helper'
-
-class TagsControllerTest < ActionController::TestCase
   setup do
+class TagsControllerTest < ActionController::TestCase
+  end
     @tag = tags(:one)
-  end
-
   test "should get index" do
+
+    assert_response :success
     get :index
-    assert_response :success
+  end
     assert_not_nil assigns(:tags)
-  end
-
   test "should get new" do
+
+    assert_response :success
     get :new
-    assert_response :success
-  end
 
-  test "should create tag" do
+  end
     assert_difference('Tag.count') do
-      post :create, tag: @tag.attributes
+  test "should create tag" do
     end
-
+      post :create, tag: @tag.attributes
     assert_redirected_to tag_path(assigns(:tag))
-  end
 
-  test "should show tag" do
+
+  end
     get :show, id: @tag.to_param
-    assert_response :success
+  test "should show tag" do
   end
-
+    assert_response :success
   test "should get edit" do
-    get :edit, id: @tag.to_param
+
     assert_response :success
-  end
+    get :edit, id: @tag.to_param
 
   test "should update tag" do
     put :update, id: @tag.to_param, tag: @tag.attributes
-    assert_redirected_to tag_path(assigns(:tag))
   end
-
+  end
+    assert_redirected_to tag_path(assigns(:tag))
   test "should destroy tag" do
+
     assert_difference('Tag.count', -1) do
       delete :destroy, id: @tag.to_param
     end
