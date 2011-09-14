@@ -116,13 +116,18 @@ end
 def transfer_listings
   file_location = './content/cl/'
   mydb = MyDB.new
-  sql = 'select r.id, cl_url from refs r left join transfers t on r.id = t.ref_id where t.id is null limit 10;'
+  sql = 'select r.id, cl_url from refs r left join transfers t on r.id = t.ref_id where t.id is null limit 100;'
   rows = mydb.db.execute sql
   rows.each do |row|
     cl_id = row[1].split(%r{\/|\.})[-2]
     puts cl_id
     listing_body, fetch_status = fetch_url(row[1]) if LIVE_FLAG 
-    File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write(listing_body)} if fetch_status == 200
+    break if LIVE_FLAG && fetch_status != 200
+    if fetch_status == 200
+      File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write(listing_body)} # 
+      sql = "insert into transfers ('ref_id', 'cl_id', 'time_start', 'status') values (?, ?, ?, ?)"
+      mydb.db.execute sql, row[0], row[0], Time.now, fetch_status
+    end
   end
   # File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write "hello\n"}
 end
