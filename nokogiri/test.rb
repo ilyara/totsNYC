@@ -8,6 +8,7 @@ class MyDB
   def initialize(db_path="dev.sqlite3")
     @db = SQLite3::Database.new(db_path)
     create_sql = <<SQL
+        drop table refs;
         create table if not exists refs (id integer primary key, cl_url string, cl_description string, cl_area string);
         create unique index if not exists idx_refs on refs(cl_url);
 SQL
@@ -53,42 +54,52 @@ def fetch_url(url='http://www.ruby-doc.org/core/classes/Bignum.html')
   body
 end
 
+def page_process(contents)
+  doc = Nokogiri::HTML(contents)
+  puts doc.at_css("title").text
+
+  # links = doc.css("p a").collect {|e| [e['href'], e.text.strip, e.parent.css("font").text.strip]}
+  links = []
+  pagination = nil
+  doc.css("p a").each do |e|
+    if e.parent.name == 'p'
+      links << [e['href'], e.text.strip, e.parent.css("font").text.strip]
+    else
+      pagination = e['href']
+    end
+  end
+  [links, pagination]
+end
+
 
 file_location = './content/cl/cl1.html'
 file = File.open(File.expand_path(file_location), "r")
+
+start_url = 'http://newyork.craigslist.org/mnh/sub/'
+url = start_url
+
 contents = file.read
 
-contents = fetch_url('http://newyork.craigslist.org/mnh/sub/')
-
-doc = Nokogiri::HTML(contents)
-puts doc.at_css("title").text
-
-# links = doc.css("p a").collect {|e| [e['href'], e.text.strip, e.parent.css("font").text.strip]}
-links = []
-pagination = ""
-doc.css("p a").each do |e|
-  if e.parent.name == 'p'
-    links << [e['href'], e.text.strip, e.parent.css("font").text.strip]
-  else
-    pagination = e['href']
-  end
-end
-
-# puts links.first[0]
-# puts links.last[0]
-# puts links
-# puts "found pagination link: #{pagination}" if pagination
-
 mydb = MyDB.new
-sql = 'select * from refs where cl_url in (?, ?)'
-rows = mydb.db.execute sql, links.first[0], links.last[0]
+pagination = ''
+while pagination do
+  puts "in cycle"
+  sleep 3
+  # contents = fetch_url(url)
+  links, pagination = page_process(contents)
+  sql = 'select * from refs where cl_url in (?, ?)'
+  rows = mydb.db.execute sql, links.first[0], links.last[0]
 
-if rows.count == 2
-  puts "these links are all there - nothing to do" 
-elsif rows.count == 1
-  puts "some links on this page need to be processed, but go no further"
-else
-  puts "processing links"
-  f = %w'cl_url cl_description cl_area'
-  mydb.bulk_insert f, links
+  if rows.count == 2
+    puts "these links are all there - nothing to do" 
+  elsif rows.count == 1
+    puts "some links on this page need to be processed, but go no further"
+  else
+    puts "processing #{links.count} links"
+    f = %w'cl_url cl_description cl_area'
+    mydb.bulk_insert f, links
+  
+    puts "found pagination link: #{start_url}#{pagination}" if pagination
+    url = "#{start_url}#{pagination}"
+  end
 end
