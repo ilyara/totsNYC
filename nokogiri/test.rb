@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'open-uri'  
 require 'sqlite3'
 
-LIVE_FLAG = false
+LIVE_FLAG = true
 
 class MyDB
   attr_reader :db
@@ -121,12 +121,14 @@ def transfer_listings
   rows.each do |row|
     cl_id = row[1].split(%r{\/|\.})[-2]
     puts cl_id
+    t = Time.now 
     listing_body, fetch_status = fetch_url(row[1]) if LIVE_FLAG 
-    break if LIVE_FLAG && fetch_status != 200
-    if fetch_status == 200
+    sleep 1
+    break if LIVE_FLAG && fetch_status != '200'
+    if fetch_status == '200'
       File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write(listing_body)} # 
-      sql = "insert into transfers ('ref_id', 'cl_id', 'time_start', 'status') values (?, ?, ?, ?)"
-      mydb.db.execute sql, row[0], row[0], Time.now, fetch_status
+      sql = "insert into transfers ('ref_id', 'cl_id', 'status') values (?, ?, ?)"
+      mydb.db.execute sql, [row[0], row[1], fetch_status]
     end
   end
   # File.open(File.expand_path(file_location + cl_id), "w") {|f| f.write "hello\n"}
