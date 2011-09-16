@@ -8,15 +8,22 @@ require './mydb'
 require './fetch'
 
 CONTENT_DIR = './content/cl/'
+LOAD_URL = 'http://newyork.craigslist.org/mnh/sub/'
+RSS_FILE = 'index.rss'
+
 LIVE_FLAG = false
 
 def knock(file_name)
-  file = File.open(File.expand_path(CONTENT_DIR+file_name), "r")
+  if LIVE_FLAG
+    file = Fetch.fetch_url(LOAD_URL+file_name)
+  else
+    file = File.open(File.expand_path(CONTENT_DIR+file_name), "r")
+  end
   Nokogiri::XML(file)
 end
 
 
-rss = knock 'index.rss'
+rss = knock RSS_FILE
 rss_links = 
 rss.xpath('//xmlns:item').collect do |i|
   [
@@ -30,8 +37,6 @@ end
 
 mydb = MyDB.new
 f = %w'cl_ref cl_url cl_issued cl_title cl_description load_time' # ' cl_area'
-puts mydb.bulk_insert f, rss_links
+puts "New entries: #{mydb.bulk_insert f, rss_links}"
 
-puts "OK"
-# Fetch.fetch_url 'http://www.cnn.com'
 
