@@ -34,27 +34,28 @@ SQL
   end
 end
 
+class Fetch
+  def fetch_url(url='http://www.ruby-doc.org/core/classes/Bignum.html')
+    headers = {
+    'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1',
+    'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Encoding' => 'gzip,deflate,sdch',
+    'Accept-Language' => 'en-US,en;q=0.8',
+    'Accept-Charset' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    }
 
-def fetch_url(url='http://www.ruby-doc.org/core/classes/Bignum.html')
-  headers = {
-  'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.220 Safari/535.1',
-  'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Encoding' => 'gzip,deflate,sdch',
-  'Accept-Language' => 'en-US,en;q=0.8',
-  'Accept-Charset' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
-  }
+    res = open(url, headers)
+    puts res.meta
+    puts res.status[0]
 
-  res = open(url, headers)
-  puts res.meta
-  puts res.status[0]
-
-  unless res.content_encoding == ['gzip'] then
-    body = res.read
-  else
-    body = Zlib::GzipReader.new(res).read
-  end
+    unless res.content_encoding == ['gzip'] then
+      body = res.read
+    else
+      body = Zlib::GzipReader.new(res).read
+    end
   
-  [body, res.status[0]]
+    [body, res.status[0]]
+  end
 end
 
 def page_process(contents)
@@ -102,7 +103,7 @@ def load_up
   #  elsif rows.count == 1
   #    puts "some links on this page need to be processed, but go further"
     else
-      puts "saveing #{links.count} links"
+      puts "saving #{links.count} links"
       f = %w'cl_url cl_description cl_area'
       mydb.bulk_insert f, links
   
