@@ -14,22 +14,18 @@ SQL
     @db.execute "PRAGMA journal_mode=MEMORY"
     @db.execute "PRAGMA synchronous=OFF"
     @db.execute "PRAGMA temp_store=MEMORY"
-    @db.execute "PRAGMA count_changes=YES"
+    @db.execute "PRAGMA count_changes=NO"
   end
 
   def bulk_insert(field_names, dataset)
-    i = 0
-    x = 0
     pattern = (['?'] * field_names.count).join(', ')
     sql = "insert or ignore into refs (#{field_names.join(', ')}) values (#{pattern})"
     @db.prepare sql do |st|
       @db.transaction
         dataset.each do |r| 
-          x, *c = st.execute(r).first
-          i += x if x
+          st.execute r
         end
       @db.commit
-      return i
     end
   end
 end

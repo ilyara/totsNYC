@@ -35,8 +35,22 @@ rss.xpath('//xmlns:item').collect do |i|
   ]
 end
 
+# puts rss_links.collect {|l| "'#{l[0]}'"} .join(', ') 
+
 mydb = MyDB.new
+sql = 'select cl_ref from refs where cl_ref in (' + rss_links.collect {|l| "'#{l[0]}'"} .join(', ')  + ")"
+
+rows = mydb.db.execute sql
+
+rows.flatten!
+
+# puts rows[0].class
+# puts rss_links[0][0].class
+rss_links.select! {|l| true unless rows.include?(l[0].to_i)}
+
+puts "Adding #{rss_links.count} new records";
+
 f = %w'cl_ref cl_url cl_issued cl_title cl_description load_time' # ' cl_area'
-puts "New entries: #{mydb.bulk_insert f, rss_links}"
+mydb.bulk_insert f, rss_links
 
 
