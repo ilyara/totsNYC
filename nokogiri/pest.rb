@@ -52,7 +52,7 @@ while @status == '200' do
   # puts rss_links[0][0].class
   rss_links.select! {|l| true unless rows.include?(l[0].to_i)}
 
-  puts "Adding #{rss_links.count} new records";
+  puts "#{Time.now.localtime}: Adding #{rss_links.count} new records";
 
   f = %w'cl_ref cl_url cl_issued cl_title cl_description load_time' # ' cl_area'
   mydb.bulk_insert f, rss_links
