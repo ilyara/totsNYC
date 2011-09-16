@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'open-uri'  
 require 'sqlite3'
 
-LIVE_FLAG = true
+LIVE_FLAG = false
 
 class MyDB
   attr_reader :db
