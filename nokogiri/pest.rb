@@ -31,7 +31,7 @@ def knock(file_name)
   Nokogiri::XML(file)
 end
 
-@log = @logger.new('@log.txt')
+@log = Logger.new('log.txt')
 
 @log.debug "starting up"
 
@@ -65,7 +65,7 @@ while @status == '200' do
   f = %w'cl_ref cl_url cl_issued cl_title cl_description load_time' # ' cl_area'
   mydb.bulk_insert f, rss_links
 break unless LIVE_FLAG
-  sleep 10
+  sleep 300
 end
 
 puts "Finished."
