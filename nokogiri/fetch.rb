@@ -1,5 +1,5 @@
 class Fetch
-  attr_reader :body, :meta, :status
+  attr_reader :body, :meta, :base_uri, :status
   class << self
     def fetch_url(url)
       headers = {
@@ -12,6 +12,7 @@ class Fetch
 
       res = open(url, headers)
       @@meta = res.meta
+      @@base_uri = res.base_uri
       @@status = res.status[0]
 
       unless res.content_encoding == ['gzip'] then

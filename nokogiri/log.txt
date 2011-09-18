@@ -1,0 +1,9 @@
+# Logfile created on 2011-09-18 12:39:52 -0400 by logger.rb/25413
+D, [2011-09-18T12:39:52.853051 #6747] DEBUG -- : Log file created
+D, [2011-09-18T12:42:29.742687 #6755] DEBUG -- : Log file created
+D, [2011-09-18T14:28:20.155250 #6811] DEBUG -- : starting up
+D, [2011-09-18T14:28:20.302273 #6811] DEBUG -- : 2011-09-18 14:28:20 -0400: Adding 0 new records
+D, [2011-09-18T14:36:55.124493 #6824] DEBUG -- : starting up
+D, [2011-09-18T14:36:55.255736 #6824] DEBUG -- : 2011-09-18 14:36:55 -0400: Adding 0 new records
+D, [2011-09-18T14:37:47.153002 #6832] DEBUG -- : starting up
+D, [2011-09-18T14:37:47.283790 #6832] DEBUG -- : 2011-09-18 14:37:47 -0400: Adding 0 new records
