@@ -19,8 +19,12 @@ LIVE_FLAG = false
 
 def knock(file_name)
   if LIVE_FLAG
-    file, @status = Fetch.fetch_url(LOAD_URL+file_name)
-    log.debug "#{Fetch.base_uri}\n#{Fetch.meta}\n#{Fetch.status}"
+    begin
+      file, @status = Fetch.fetch_url(LOAD_URL+file_name)
+      log.debug "#{Fetch.base_uri}\n#{Fetch.meta}\n#{Fetch.status}"
+    rescue Exception => e
+      log.debug "Oops!: #{e.message}"
+    end
   else
     file = File.open(File.expand_path(CONTENT_DIR+file_name), "r")
   end
@@ -34,11 +38,7 @@ log.debug "starting up"
 mydb = MyDB.new
 
 while @status == '200' do
-  begin
-    rss = knock RSS_FILE
-  rescue Exception => e
-    debug.log "Oops!: #{e.message}"
-  end
+  rss = knock RSS_FILE
   rss_links = 
   rss.xpath('//xmlns:item').collect do |i|
     [
