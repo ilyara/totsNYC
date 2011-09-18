@@ -10,7 +10,7 @@ require './mydb'
 require './fetch'
 
 CONTENT_DIR = './content/cl/'
-LOAD_URL = 'http://newyork.craigslist.org/mnh/sub/'
+LOAD_URL = 'http://newyork.craigslist.org/hhh/'
 RSS_FILE = 'index.rss'
 
 LIVE_FLAG = false
@@ -34,6 +34,8 @@ end
 @log = Logger.new('log.txt')
 
 @log.debug "starting up"
+
+Signal.trap(0, proc { @log.debug "Terminating: #{$$} at #{Time.now.localtime}" })
 
 mydb = MyDB.new
 
@@ -65,8 +67,7 @@ while @status == '200' do
   f = %w'cl_ref cl_url cl_issued cl_title cl_description load_time' # ' cl_area'
   mydb.bulk_insert f, rss_links
 break unless LIVE_FLAG
-  sleep 300
+  sleep 900
 end
 
 puts "Finished."
-
