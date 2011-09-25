@@ -1,4 +1,11 @@
 Pretty::Application.routes.draw do
+  resources :managers do
+      get :autocomplete_manager_name, :on => :collection
+  end
+
+  get 'search' => 'managers#search'
+  resources :companies
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:

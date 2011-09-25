@@ -1,0 +1,3 @@
+- title "Search Manager"
+= form_tag '/managers/autocomplete_manager_name' do
+ = autocomplete_field_tag 'name', '', autocomplete_manager_name_managers_path, :size => 75

@@ -1,0 +1,13 @@
+- title "Managers"
+
+%table
+  %tr
+    %th Name
+  - for manager in @managers
+    %tr
+      %td= manager.name
+      %td= link_to 'Show', manager
+      %td= link_to 'Edit', edit_manager_path(manager)
+      %td= link_to 'Destroy', manager, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Manager", new_manager_path

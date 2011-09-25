@@ -1,0 +1,12 @@
+- title "Manager"
+
+%p
+  %strong Name:
+  = @manager.name
+
+%p
+  = link_to "Edit", edit_manager_path(@manager)
+  |
+  = link_to "Destroy", @manager, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", managers_path

@@ -70,7 +70,10 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
     mime-types (1.16)
+    mocha (0.10.0)
+      metaclass (~> 0.0.1)
     multi_json (1.0.3)
     nifty-generators (0.4.6)
     polyglot (0.3.2)
@@ -91,6 +94,8 @@ GEM
       activesupport (= 3.1.0)
       bundler (~> 1.0)
       railties (= 3.1.0)
+    rails3-jquery-autocomplete (1.0.3)
+      rails (~> 3.0)
     railties (3.1.0)
       actionpack (= 3.1.0)
       activesupport (= 3.1.0)
@@ -132,8 +137,10 @@ DEPENDENCIES
   compass!
   haml-rails
   jquery-rails
+  mocha
   nifty-generators
   rails (= 3.1.0)
+  rails3-jquery-autocomplete
   sass-rails (~> 3.1.0)
   sqlite3
   turn

@@ -15,6 +15,18 @@ $blueprint-font-family: Georgia, "Helvetica Neue", Arial, Helvetica, sans-serif;
   @include column(10);
 }
 
+.two-col {
+  background-color: #cccccc;
+  .header, .footer {
+    @include column(24, true); }
+  .sidebar {
+    @include column(3, true); }
+  .content {
+    border-width: 1px;
+    border-style: solid;
+    @include column(5, true); }
+}
+
 body {
 }
 

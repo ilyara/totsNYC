@@ -35,3 +35,7 @@ end
 gem 'haml-rails'
 gem 'nifty-generators'
 gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
+gem "mocha", :group => :test
+gem 'rails3-jquery-autocomplete'
+
+
