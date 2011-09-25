@@ -1,0 +1,14 @@
+= semantic_form_for @gadfly do |f|
+  = f.error_messages
+  .c1
+    = f.label :name
+    %br
+    = f.text_field :name
+  .c2
+    = f.label :meaning
+    %br
+    = f.text_field :meaning
+  .c3
+    = f.input :category
+  %p
+    = f.submit

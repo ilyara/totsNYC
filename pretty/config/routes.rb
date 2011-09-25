@@ -1,4 +1,8 @@
 Pretty::Application.routes.draw do
+  resources :categories
+
+  resources :gadflies
+
   resources :managers do
       get :autocomplete_manager_name, :on => :collection
   end

@@ -1,0 +1,17 @@
+- title "Gadflies"
+
+%table
+  %tr
+    %th Name
+    %th Meaning
+    %th Category
+  - for gadfly in @gadflies
+    %tr
+      %td= gadfly.name
+      %td= gadfly.meaning
+      %td= gadfly.category
+      %td= link_to 'Show', gadfly
+      %td= link_to 'Edit', edit_gadfly_path(gadfly)
+      %td= link_to 'Destroy', gadfly, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Gadfly", new_gadfly_path

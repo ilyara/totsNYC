@@ -1,0 +1,18 @@
+- title "Gadfly"
+
+%p
+  %strong Name:
+  = @gadfly.name
+%p
+  %strong Meaning:
+  = @gadfly.meaning
+%p
+  %strong Category:
+  = @gadfly.category
+
+%p
+  = link_to "Edit", edit_gadfly_path(@gadfly)
+  |
+  = link_to "Destroy", @gadfly, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", gadflies_path
