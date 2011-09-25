@@ -1,0 +1,11 @@
+one:
+  reference: MyString
+  code_word: MyString
+  status: MyString
+  pitch: MyString
+
+two:
+  reference: MyString
+  code_word: MyString
+  status: MyString
+  pitch: MyString

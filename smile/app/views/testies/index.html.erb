@@ -1,0 +1,19 @@
+<% title "Testies" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+  </tr>
+  <% for testie in @testies %>
+    <tr>
+      <td><%= testie.name %></td>
+      <td><%= testie.status %></td>
+      <td><%= link_to "Show", testie %></td>
+      <td><%= link_to "Edit", edit_testie_path(testie) %></td>
+      <td><%= link_to "Destroy", testie, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Testie", new_testie_path %></p>

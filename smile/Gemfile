@@ -1,0 +1,47 @@
+source 'http://rubygems.org'
+
+gem 'rails', '3.1.0'
+
+# Bundle edge Rails instead:
+# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+
+gem 'sqlite3'
+
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
+
+#ilya
+#gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
+gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
+gem 'rqrcode-rails3'
+gem 'mini_magick'
+gem 'geocoder'
+
+group :test do
+  # Pretty printed test output
+  gem 'turn', :require => false
+  gem "mocha"
+end
+
+group :development do
+  gem 'haml-rails'
+  gem 'nifty-generators'
+end
+

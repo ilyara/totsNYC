@@ -1,0 +1,45 @@
+$blueprint-grid-columns : 24;
+$blueprint-grid-width   : 30px;
+$blueprint-grid-margin  : 10px;
+$font-color             : #333;
+$blueprint-font-family: Georgia, "Helvetica Neue", Arial, Helvetica, sans-serif;
+
+@import "compass/reset";
+@import "compass/utilities";
+@import "blueprint";
+
+@include blueprint-typography;
+
+#ilya {
+  background: pink;
+  @include column(10);
+}
+
+body {
+}
+
+#container {
+  @include container;
+  @include showgrid;
+}
+
+#header {
+  @include column(24, true);
+  background: purple;
+}
+
+#left-nav {
+  @include column(6);
+}
+
+#content {
+  @include column(12);
+}
+
+#side-bar {
+  @include column(6, true);
+}
+
+#footer {
+  @include column(24, true);
+}

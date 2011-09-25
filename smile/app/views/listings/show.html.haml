@@ -1,0 +1,21 @@
+- title "Listing"
+
+%p
+  %strong Reference:
+  = @listing.ref
+%p
+  %strong Code Word:
+  = @listing.code_word
+%p
+  %strong Status:
+  = @listing.status.name
+%p
+  %strong Pitch:
+  = @listing.pitch
+
+%p
+  = link_to "Edit", edit_listing_path(@listing)
+  |
+  = link_to "Destroy", @listing, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", listings_path

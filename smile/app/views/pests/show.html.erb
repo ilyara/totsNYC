@@ -1,0 +1,16 @@
+<% title "Pest" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pest.name %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @pest.status %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_pest_path(@pest) %> |
+  <%= link_to "Destroy", @pest, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", pests_path %>
+</p>

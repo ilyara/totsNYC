@@ -1,0 +1,20 @@
+- title "Location"
+
+%p
+  %strong Address:
+  = @location.address
+%p
+  %strong Latitude:
+  = @location.latitude
+%p
+  %strong Longitude:
+  = @location.longitude
+%p
+  = image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=label:A%7C#{@location.latitude}%2C#{@location.longitude}"
+
+%p
+  = link_to "Edit", edit_location_path(@location)
+  |
+  = link_to "Destroy", @location, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", locations_path

@@ -1,0 +1,17 @@
+- title "Locations"
+
+%table
+  %tr
+    %th Address
+    %th Latitude
+    %th Longitude
+  - for location in @locations
+    %tr
+      %td= location.address
+      %td= location.latitude
+      %td= location.longitude
+      %td= link_to 'Show', location
+      %td= link_to 'Edit', edit_location_path(location)
+      %td= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Location", new_location_path

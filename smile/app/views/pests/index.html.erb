@@ -1,0 +1,19 @@
+<% title "Pests" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+  </tr>
+  <% for pest in @pests %>
+    <tr>
+      <td><%= pest.name %></td>
+      <td><%= pest.status %></td>
+      <td><%= link_to "Show", pest %></td>
+      <td><%= link_to "Edit", edit_pest_path(pest) %></td>
+      <td><%= link_to "Destroy", pest, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Pest", new_pest_path %></p>

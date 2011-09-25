@@ -1,0 +1,10 @@
+= semantic_form_for @listing do |f|
+  = f.error_messages
+  %p
+  = f.inputs "Basic", :id => "basic" do
+    = f.input :ref, :input_html => { :disabled => true } 
+    = f.inputs :gist, :status
+  = f.inputs "Advanced", :id => "advanced" do
+    = f.input :code_word, :input_html => { :disabled => true } 
+    = f.input :pitch, :as => :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 20, :maxlength => 1024  }
+  = f.buttons
