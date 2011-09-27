@@ -1,0 +1,12 @@
+= netzke :two_grid_panels, :class_name => "Basepack::AccordionPanel",
+  :items => [{:class_name => "Basepack::GridPanel",
+  :model => "Task",
+  :title => "Bosses"},
+  {:class_name => "Basepack::GridPanel",
+  :model => "SubTask",
+  :title => "Clerks"}],
+  :width => 700, :border => true
+
+= netzke :ku, :class_name => "Basepack::GridPanel", :model => "Task", :title => "Taski"
+= netzke :ka, :class_name => "Basepack::GridPanel", :model => "SubTask", :title => "SubTaski"
+
