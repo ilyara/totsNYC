@@ -1,0 +1,12 @@
+- title "Listing"
+
+%p
+  %strong Gist:
+  = @listing.gist
+
+%p
+  = link_to "Edit", edit_listing_path(@listing)
+  |
+  = link_to "Destroy", @listing, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", listings_path

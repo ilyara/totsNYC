@@ -1,0 +1,13 @@
+- title "Listings"
+
+%table
+  %tr
+    %th Gist
+  - for listing in @listings
+    %tr
+      %td= listing.gist
+      %td= link_to 'Show', listing
+      %td= link_to 'Edit', edit_listing_path(listing)
+      %td= link_to 'Destroy', listing, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Listing", new_listing_path
