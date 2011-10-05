@@ -1,0 +1,18 @@
+- title "Selection"
+
+%p
+  %strong Name:
+  = @selection.name
+%p
+  %strong Created By:
+  = @selection.created_by
+%p
+  %strong Status:
+  = @selection.status
+
+%p
+  = link_to "Edit", edit_selection_path(@selection)
+  |
+  = link_to "Destroy", @selection, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", selections_path

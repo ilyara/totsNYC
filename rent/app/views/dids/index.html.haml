@@ -1,0 +1,17 @@
+- title "Dids"
+
+%table
+  %tr
+    %th Provider
+    %th Number
+    %th Status
+  - for did in @dids
+    %tr
+      %td= did.provider
+      %td= did.number
+      %td= did.status
+      %td= link_to 'Show', did
+      %td= link_to 'Edit', edit_did_path(did)
+      %td= link_to 'Destroy', did, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Did", new_did_path

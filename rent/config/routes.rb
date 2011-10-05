@@ -1,4 +1,20 @@
 Rent::Application.routes.draw do
+  get "sessions/new"
+
+  get "users/new"
+
+  resources :companies
+
+  resources :selections
+
+  resources :statuses
+
+  resources :cids
+
+  resources :dids
+
+  resources :comments
+
   resources :listings
 
   root :to => "home#index"

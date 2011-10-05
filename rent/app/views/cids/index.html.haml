@@ -1,0 +1,15 @@
+- title "Cids"
+
+%table
+  %tr
+    %th Number
+    %th Status
+  - for cid in @cids
+    %tr
+      %td= cid.number
+      %td= cid.status
+      %td= link_to 'Show', cid
+      %td= link_to 'Edit', edit_cid_path(cid)
+      %td= link_to 'Destroy', cid, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Cid", new_cid_path

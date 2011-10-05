@@ -11,7 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005195943) do
+ActiveRecord::Schema.define(:version => 20111005221635) do
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.string   "provider",   :null => false
+    t.string   "uid",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cids", :force => true do |t|
+    t.string   "number"
+    t.integer  "status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.string   "comment"
+    t.integer  "listing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.integer  "status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dids", :force => true do |t|
+    t.integer  "provider_id"
+    t.string   "number"
+    t.integer  "status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "listings", :force => true do |t|
     t.string   "gist"
@@ -20,5 +57,33 @@ ActiveRecord::Schema.define(:version => 20111005195943) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "selections", :force => true do |t|
+    t.string   "name"
+    t.integer  "created_by_id"
+    t.integer  "status_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", :force => true do |t|
+    t.string   "name"
+    t.string   "ns"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username",                     :null => false
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+  end
+
+  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
 end

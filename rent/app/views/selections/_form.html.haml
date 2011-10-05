@@ -1,0 +1,16 @@
+= form_for @selection do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :created_by
+    %br
+    = f.text_field :created_by
+  %p
+    = f.label :status
+    %br
+    = f.text_field :status
+  %p
+    = f.submit

@@ -3,9 +3,11 @@
 %table
   %tr
     %th Gist
+    %th Created
   - for listing in @listings
     %tr
       %td= listing.gist
+      %td= listing.created_at.localtime
       %td= link_to 'Show', listing
       %td= link_to 'Edit', edit_listing_path(listing)
       %td= link_to 'Destroy', listing, :confirm => 'Are you sure?', :method => :delete

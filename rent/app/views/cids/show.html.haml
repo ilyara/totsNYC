@@ -1,0 +1,15 @@
+- title "Cid"
+
+%p
+  %strong Number:
+  = @cid.number
+%p
+  %strong Status:
+  = @cid.status
+
+%p
+  = link_to "Edit", edit_cid_path(@cid)
+  |
+  = link_to "Destroy", @cid, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", cids_path

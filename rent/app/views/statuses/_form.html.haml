@@ -1,0 +1,12 @@
+= form_for @status do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :ns
+    %br
+    = f.text_field :ns
+  %p
+    = f.submit

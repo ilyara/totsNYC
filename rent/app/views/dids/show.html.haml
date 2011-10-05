@@ -1,0 +1,18 @@
+- title "Did"
+
+%p
+  %strong Provider:
+  = @did.provider
+%p
+  %strong Number:
+  = @did.number
+%p
+  %strong Status:
+  = @did.status
+
+%p
+  = link_to "Edit", edit_did_path(@did)
+  |
+  = link_to "Destroy", @did, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", dids_path

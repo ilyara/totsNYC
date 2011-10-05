@@ -1,0 +1,12 @@
+= form_for @cid do |f|
+  = f.error_messages
+  %p
+    = f.label :number
+    %br
+    = f.text_field :number
+  %p
+    = f.label :status
+    %br
+    = f.text_field :status
+  %p
+    = f.submit
