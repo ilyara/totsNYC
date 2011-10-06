@@ -1,0 +1,15 @@
+- title "Building"
+
+%p
+  %strong Address:
+  = @building.address
+%p
+  %strong Company:
+  = @building.company
+
+%p
+  = link_to "Edit", edit_building_path(@building)
+  |
+  = link_to "Destroy", @building, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", buildings_path

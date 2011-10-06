@@ -1,0 +1,12 @@
+= form_for @building do |f|
+  = f.error_messages
+  %p
+    = f.label :address
+    %br
+    = f.text_field :address
+  %p
+    = f.label :company
+    %br
+    = f.text_field :company
+  %p
+    = f.submit

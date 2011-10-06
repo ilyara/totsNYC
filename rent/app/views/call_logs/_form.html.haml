@@ -1,0 +1,12 @@
+= form_for @call_log do |f|
+  = f.error_messages
+  %p
+    = f.label :cid
+    %br
+    = f.text_field :cid
+  %p
+    = f.label :comments
+    %br
+    = f.text_field :comments
+  %p
+    = f.submit

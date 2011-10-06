@@ -1,4 +1,8 @@
 Rent::Application.routes.draw do
+  resources :call_logs
+
+  resources :buildings
+
   resources :roles
 
   get "login" => "sessions#new", :as => "login"

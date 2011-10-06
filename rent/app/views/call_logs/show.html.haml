@@ -1,0 +1,15 @@
+- title "Call Log"
+
+%p
+  %strong Cid:
+  = @call_log.cid
+%p
+  %strong Comments:
+  = @call_log.comments
+
+%p
+  = link_to "Edit", edit_call_log_path(@call_log)
+  |
+  = link_to "Destroy", @call_log, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", call_logs_path
