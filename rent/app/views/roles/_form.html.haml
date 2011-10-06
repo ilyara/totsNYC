@@ -1,0 +1,12 @@
+= form_for @role do |f|
+  = f.error_messages
+  %p
+    = f.label :rolename
+    %br
+    = f.text_field :rolename
+  %p
+    = f.label :description
+    %br
+    = f.text_field :description
+  %p
+    = f.submit

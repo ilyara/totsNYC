@@ -1,0 +1,15 @@
+- title "Role"
+
+%p
+  %strong Rolename:
+  = @role.rolename
+%p
+  %strong Description:
+  = @role.description
+
+%p
+  = link_to "Edit", edit_role_path(@role)
+  |
+  = link_to "Destroy", @role, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", roles_path

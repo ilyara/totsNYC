@@ -1,0 +1,15 @@
+- title "Roles"
+
+%table
+  %tr
+    %th Rolename
+    %th Description
+  - for role in @roles
+    %tr
+      %td= role.rolename
+      %td= role.description
+      %td= link_to 'Show', role
+      %td= link_to 'Edit', edit_role_path(role)
+      %td= link_to 'Destroy', role, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Role", new_role_path
