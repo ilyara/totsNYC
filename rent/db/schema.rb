@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111006181630) do
+ActiveRecord::Schema.define(:version => 20111006230144) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20111006181630) do
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "call_logs", :force => true do |t|
@@ -70,6 +72,16 @@ ActiveRecord::Schema.define(:version => 20111006181630) do
     t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unit"
+    t.integer  "building_id"
+    t.integer  "listings_type_id"
+    t.integer  "room_config_id"
+    t.integer  "fee_type_id"
+    t.integer  "monthly_rent"
+    t.integer  "created_by_id"
+    t.integer  "rooms_total"
+    t.integer  "rooms_bed"
+    t.integer  "rooms_bath"
   end
 
   create_table "roles", :force => true do |t|
@@ -106,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20111006181630) do
     t.datetime "last_login_at"
     t.datetime "last_logout_at"
     t.datetime "last_activity_at"
+    t.integer  "role_id"
   end
 
   add_index "users", ["last_logout_at", "last_activity_at"], :name => "index_users_on_last_logout_at_and_last_activity_at"

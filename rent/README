@@ -6,7 +6,7 @@ broker uses RS to manage listings, add comments to listings
 agent uses RS to view listings, add comments to listings (visible by broker & other agents)
 renter uses phone to call RS 
 
-=== adding a listing
+=== create new listing
 Check that the building at given address already exists in RS
 If not, create new building & ask to select [or create] Management Company
 

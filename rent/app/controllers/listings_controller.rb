@@ -13,11 +13,21 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(params[:listing])
-    if @listing.save
-      redirect_to @listing, :notice => "Successfully created listing."
-    else
-      render :action => 'new'
-    end
+    @listing.current_step = session[:listing_step]
+    @listing.next_step
+    
+    @coordinates = Geocoder.coordinates @listing.address_geo
+    @building = Building.first
+    
+    session[:listing_step] = @listing.current_step 
+    flash.now[:notice]  = @listing.current_step
+    render :action => 'new'
+    # @listing = Listing.new(params[:listing])
+    # if @listing.save
+    #   redirect_to @listing, :notice => "Successfully created listing."
+    # else
+    #   render :action => 'new'
+    # end
   end
 
   def edit

@@ -1,0 +1,9 @@
+= form_for @listing do |f|
+  = f.error_messages
+  %p= @listing.current_step
+  %p
+    = f.label :street_address
+    %br
+    = f.text_field :address
+  %p
+    = f.submit 'next'

@@ -1,12 +1,6 @@
-= form_for @building do |f|
+= semantic_form_for @building do |f|
   = f.error_messages
   %p
-    = f.label :address
-    %br
-    = f.text_field :address
+    = f.inputs :address, :company
   %p
-    = f.label :company
-    %br
-    = f.text_field :company
-  %p
-    = f.submit
+    = f.buttons

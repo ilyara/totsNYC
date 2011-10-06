@@ -9,7 +9,7 @@
       %td= listing.gist
       %td= listing.created_at.localtime
       %td= link_to 'Show', listing
-      %td= link_to 'Edit', edit_listing_path(listing)
-      %td= link_to 'Destroy', listing, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Edit', edit_listing_path(listing) if can? :update, @listing
+      %td= link_to 'Destroy', listing, :confirm => 'Are you sure?', :method => :delete if can? :update, @listing
 
-%p= link_to "New Listing", new_listing_path
+%p= link_to "New Listing", new_listing_path if can? :update, @listing

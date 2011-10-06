@@ -7,7 +7,7 @@
   - for building in @buildings
     %tr
       %td= building.address
-      %td= building.company
+      %td= building.company.name if building.company
       %td= link_to 'Show', building
       %td= link_to 'Edit', edit_building_path(building)
       %td= link_to 'Destroy', building, :confirm => 'Are you sure?', :method => :delete
