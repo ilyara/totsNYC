@@ -1,7 +1,9 @@
 class Listing < ActiveRecord::Base
-  attr_accessible :gist, :pitch, :address
+  attr_accessible :gist, :pitch, :unit, :monthly_rent, :rooms_total, :rooms_bed, :rooms_bath, :building
+  attr_accessible :address
   attr_writer :current_step, :address
   has_many :comments
+  belongs_to :building
 
   def steps
     %w[building unit gist]

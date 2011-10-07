@@ -10,6 +10,7 @@ Role.delete_all
 Did.delete_all
 Company.delete_all
 Building.delete_all
+Listing.delete_all
 roles = Role.create!([
   {rolename: 'admin', description: 'Administrator'}, 
   {rolename: 'agent', description: 'Broker Agent'},
@@ -26,8 +27,20 @@ dids = Did.create!([
 companies = Company.create!([
   {name: 'Rose Associates'}
 ])
-building = Building.create!([
+buildings = Building.create!([
   {address: '260 W. 52nd Street', company: companies.first},
   {address: '322 W. 57th St', company: companies.first},
   {address: '358 West 47th Street'}
+])
+listings = Listing.create!([
+  {
+    gist: 'One bedroom in a doorman building near Times Square', 
+    pitch: 'This awesome apartment is in a full service doorman building and has lots of light',
+    unit: '4F',
+    monthly_rent: '3050',
+    rooms_total: 3,
+    rooms_bed: 1,
+    rooms_bath: 1,
+    building: buildings.first
+  }
 ])

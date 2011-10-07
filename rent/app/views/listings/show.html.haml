@@ -1,8 +1,9 @@
 - title "Listing"
 
 %p
-  %strong Gist:
   = @listing.gist
+  <br>
+  = @listing.building.address + " " + @listing.unit + " at " + @listing.monthly_rent.to_s
 
 %p
   = link_to "Edit", edit_listing_path(@listing)
