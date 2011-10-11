@@ -1,0 +1,13 @@
+As of #{@today}, we have #{@listings_available} apartments available for immediate occupancy. 
+We will be showing them 
+- if @hour < 19
+  later tonight and 
+all day on #{@tomorrow}. 
+
+%p You may call us at (646) 553-6331 for updated apartment availability or to find the status of your pending application.
+
+%p Please enter your phone number to retrieve a listing of available apartments. You may request to schedule a viewing and receive real time availability updates.
+
+= image_tag @map_url
+
+
