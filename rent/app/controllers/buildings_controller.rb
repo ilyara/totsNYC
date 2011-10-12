@@ -1,6 +1,10 @@
 class BuildingsController < ApplicationController
   def index
     @buildings = Building.all
+    gmap_base = 'http://maps.googleapis.com/maps/api/staticmap?&size=512x512&maptype=roadmap&sensor=false'
+    marker_base = "&markers="
+    markers = Building.all.collect {|b| [b.latitude, b.longitude].join(',')} .join('|')
+    @map_url = gmap_base + marker_base + markers
   end
 
   def show
