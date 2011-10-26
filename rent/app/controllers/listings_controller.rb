@@ -8,7 +8,8 @@ class ListingsController < ApplicationController
   end
 
   def new
-    @listing = Listing.new
+    @listing = Listing.new(:status => Status.listing_status.first)
+#    @listing.status = Status.
   end
 
   def create

@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.delete_all
 Role.delete_all
+Status.delete_all
 Did.delete_all
 Company.delete_all
 Building.delete_all
@@ -21,8 +22,12 @@ users = User.create!([
   {username: 'grezis', email: 'grezis@gmail.com', password: '123', role: roles.second},
   {username: 'lit', email: 'lit@piva.net', password: '123', role: roles.third}
 ])
+statuses = Status.create!([
+  {name: 'Currently Renting', ns: 'listing_status'}, {name: 'Rented', ns: 'listing_status'},
+  {name: 'Application Pending', ns: 'listing_status'}, {name: 'Some CID Status', ns: 'cid_status'}  
+])
 dids = Did.create!([
-  {number: '(347) 868-6692'}, {number: '(646) 553-6331'} 
+  {number: '(347) 868-6692'}, {number: '(646) 553-6331'}, {number: '(646) 699-4692'}
 ])
 companies = Company.create!([
   {name: 'Rose Associates'}
@@ -35,12 +40,13 @@ buildings = Building.create!([
 listings = Listing.create!([
   {
     gist: 'One bedroom in a doorman building near Times Square', 
-    pitch: 'This awesome apartment is in a full service doorman building and has lots of light',
+    pitch: 'This awesome apartment is in a full service doorman building and has plenty of light',
     unit: '4F',
     monthly_rent: '3050',
     rooms_total: 3,
     rooms_bed: 1,
     rooms_bath: 1,
-    building: buildings.first
+    building: buildings.first,
+    status: statuses.first
   }
 ])

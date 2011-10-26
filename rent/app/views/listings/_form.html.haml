@@ -1,8 +1,10 @@
 = semantic_form_for @listing do |f|
   = f.error_messages
   %p
-    = f.inputs :gist, :pitch, :status_id, :unit 
-    = f.input :building, :collection =>  Building.all.collect {|b| [b.address, b.id]}
+    = f.inputs :gist, :pitch
+    = f.input :unit, :input_html => { :disabled => true }
+    = f.input :status, :collection => Status.listing_status, :include_blank => false, :include_blank => false
+    = f.input :building, :member_label => :address, :required => true, :prompt => "Select A Building" # :collection =>  Building.all.collect {|b| [b.address, b.id]}
     =# :listings_type_id, :room_config, :fee_type, :monthly_rent, :created_by, :rooms_total, :rooms_bed, :rooms_bath, :created_at, :updated_at
   %p
     = f.buttons
