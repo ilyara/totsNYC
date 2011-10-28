@@ -17,6 +17,8 @@
 
       - if logged_in?
         %h4= link_to current_user.email, logout_path
+      - else
+        = image_tag 'facebook_login_button.png'
 
       - if show_title?
         %h1= yield(:title)
