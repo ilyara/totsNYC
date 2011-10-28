@@ -10,7 +10,8 @@
   = image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=label:A%7C#{@building.latitude}%2C#{@building.longitude}"
 
 %p
-= "Lat: #{@building.latitude} Lon: #{@building.longitude}"
+- if @building.listings.count > 0
+  = render @building.listings
 %p
   = link_to "Edit", edit_building_path(@building)
   |
