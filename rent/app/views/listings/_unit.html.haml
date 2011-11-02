@@ -1,0 +1,8 @@
+= semantic_form_for @listing do |f|
+  = f.error_messages
+  %p
+    = f.inputs :unit
+  %p
+    = f.buttons
+
+%p= "Building: " + @building.address if @listing.building
