@@ -1,6 +1,7 @@
 = semantic_form_for @listing do |f|
   = f.error_messages
   %p
+    = f.input :building_id, :as => :hidden, :value => @building.id
     = f.inputs :unit
   %p
     = f.buttons

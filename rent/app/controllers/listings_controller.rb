@@ -9,6 +9,7 @@ class ListingsController < ApplicationController
 
   def new
     @listing = Listing.new(:status => Status.listing_status.first)
+    session[:listing_step] = nil
 #    @listing.status = Status.
   end
 
@@ -23,10 +24,14 @@ class ListingsController < ApplicationController
         @listing.building = @building
         @listing.next_step 
       end
-    elsif @listing.last_step?
-      create_finalize
     else
       @listing.next_step
+    end
+    
+    if @listing.last_step?
+      session[:listing_step] = nil
+      create_finalize
+      return
     end
     
     session[:listing_step] = @listing.current_step 
