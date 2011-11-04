@@ -1,0 +1,7 @@
+= semantic_form_for @listing do |f|
+  = f.error_messages
+  %p
+    = f.inputs :address
+  %p
+    = f.submit 'next', :hint => 'Enter Street Address'
+  %p= "Building: " + @listing.building.address if @listing.building

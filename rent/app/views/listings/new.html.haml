@@ -1,7 +1,8 @@
-- title "New Listing"
+- title "Add New Listing"
 
-= render 'form'
+= render @listing.current_step
 
 %p= @coordinates
+%p= "step: " + @listing.current_step
 
-%p= link_to "Back to List", listings_path
+%p= link_to "Cancel", listings_path

@@ -7,7 +7,7 @@ class Listing < ActiveRecord::Base
   belongs_to :status
 
   def steps
-    %w[building unit gist]
+    %w[building unit finalize]
   end
   
   def current_step
@@ -38,7 +38,7 @@ class Listing < ActiveRecord::Base
   end
   
   def address
-    @address || '123 City Avenue'
+    @address || '260 w. 52nd'
   end
   
   def address_geo

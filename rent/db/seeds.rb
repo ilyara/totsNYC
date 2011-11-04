@@ -41,10 +41,21 @@ listings = Listing.create!([
   {
     gist: 'One bedroom in a doorman building near Times Square', 
     pitch: 'This awesome apartment is in a full service doorman building and has plenty of light',
-    unit: '4F',
-    monthly_rent: '3050',
+    unit: '6J',
+    monthly_rent: '3015',
     rooms_total: 3,
     rooms_bed: 1,
+    rooms_bath: 1,
+    building: buildings.first,
+    status: statuses.first
+  },
+  {
+    gist: 'Sunlit two bedroom in a doorman building near Times Square', 
+    pitch: 'This awesome apartment is in a full service doorman building and is awesome!!!',
+    unit: '15-G',
+    monthly_rent: '4050',
+    rooms_total: 4,
+    rooms_bed: 2,
     rooms_bath: 1,
     building: buildings.first,
     status: statuses.first
