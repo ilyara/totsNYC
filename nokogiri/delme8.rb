@@ -11,9 +11,9 @@ end
 
 bits = knock '1.html'
 
-a = bits.at_css('h2').next.css('li.standardli, li.shadedli')[125..130]
+a = bits.at_css('h2').next.css('li.standardli, li.shadedli')[125..126]
 
-# puts e
+puts a
 a.each do |e|
   print "\n=====\n"
   name = e.css('a')[0].text
