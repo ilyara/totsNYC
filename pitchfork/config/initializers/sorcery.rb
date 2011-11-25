@@ -38,6 +38,7 @@ Rails.application.config.sorcery.configure do |config|
   # -- external --
   # config.external_providers = []                                    # What providers are supported by this app,
                                                                       # i.e. [:twitter, :facebook, :github, :google, :liveid] .
+  config.external_providers = [:facebook]                                                                    
   # config.ca_file = 'path/to/ca_file'                                # Path to ca_file. By default use a internal ca-bundle.crt.
                                                                       # You can change it by your local ca_file.
                                                                       # i.e. '/etc/pki/tls/certs/ca-bundle.crt'
@@ -54,6 +55,14 @@ Rails.application.config.sorcery.configure do |config|
   # config.facebook.secret = "5b458d179f61d4f036ee66a497ffbcd0"
   # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
   # config.facebook.user_info_mapping = {:email => "name"}
+
+  config.facebook.key = "245487662177506"
+  config.facebook.secret = "3e51e58c3a1acb7a37fad3c812f1fa69"
+  config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
+  config.facebook.user_info_mapping = {:email => "email", :name => "name", :username => "id",
+    :gender => "gender", :locale => "locale", :link => "link"} # , :username2 => "username", :phone => "mobile_phone"}
+  config.facebook.scope = ""
+    
   #
   # config.github.key = ""
   # config.github.secret = ""
@@ -203,6 +212,7 @@ Rails.application.config.sorcery.configure do |config|
                                                                                       # external provider data for this
                                                                                       # user.
 
+    user.authentications_class = Authentication
     # user.authentications_user_id_attribute_name = :user_id                          # user's identifier in
                                                                                       # authentications class.
 

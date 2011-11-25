@@ -1,4 +1,14 @@
 Pitchfork::Application.routes.draw do
+  get "sessions/new"
+
+  root :to => 'home#index'
+
+  resource :oauth do
+    get :callback
+  end
+
+  match "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
