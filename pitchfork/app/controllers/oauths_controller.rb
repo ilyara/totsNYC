@@ -21,8 +21,9 @@ class OauthsController < ApplicationController
         # logger.info "activated OK"
         reset_session # protect from session fixation attack
         logger.info "reset_session OK"
+        auto_login(@user)
         # login_user(@user)
-        # logger.info "login_user OK"
+        logger.info "auto_login OK"
         redirect_to root_path, :notice => "User created & logged in from #{provider.titleize}!"
       rescue
         redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
@@ -30,5 +31,11 @@ class OauthsController < ApplicationController
     end
   rescue
     redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
-  end  
+  end
+  
+  def destroy
+    logout
+    redirect_to('/', :notice => 'Logged out!')
+  end
+
 end

@@ -1,5 +1,5 @@
 Pitchfork::Application.routes.draw do
-  get "sessions/new"
+#  get "sessions/new"
 
   root :to => 'home#index'
 
@@ -8,6 +8,8 @@ Pitchfork::Application.routes.draw do
   end
 
   match "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+ 
+  match 'logout' => 'oauths#destroy', :as => :logout
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
