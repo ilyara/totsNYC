@@ -1,0 +1,12 @@
+Public
+  view public info
+  sign up for event (extend: auto_signup via link or code)
+Voter
+	view event page
+	view stats (# of total/viewed pitches, deadline, # of tokens)
+	review rated pitches
+	view next pitch
+Admin (Event)
+  select event (auto_select)
+  list pitches for current event
+Admin (System)

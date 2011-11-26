@@ -38,5 +38,5 @@ end
 gem 'haml-rails'
 gem 'nifty-generators'
 gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git'
-gem 'sorcery'
+gem 'sorcery', :git => 'git://github.com/NoamB/sorcery.git'
 gem 'cancan'
