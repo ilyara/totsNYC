@@ -9,7 +9,9 @@ def knock(file_name)
   Nokogiri::HTML(file)
 end
 
-bits = knock '1.html'
+file_name = ARGV[0] || '1.html'
+
+bits = knock file_name
 
 a = bits.at_css('h2').next.css('li.standardli, li.shadedli')[125..126]
 
@@ -21,5 +23,5 @@ a.each do |e|
   address = e.at_css('a').next.text.strip[1...-1]; address = name if address.empty?
   neigborhood = e.css('a')[1].text
   description = e.at_css('br').next.text.strip.squeeze(" ") if not e.at_css('br').next.nil?
-  print "name: #{name}\nhref: #{href}\naddress: #{address}\nneigborhood: #{neigborhood}\ndescription: #{description}"
+  print "name: #{name}\nhref: #{href}\naddress: #{address}\nneigborhood: #{neigborhood}\ndescription: #{description}\n"
 end
