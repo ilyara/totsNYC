@@ -1,0 +1,249 @@
+// open file by name or create if not found
+
+function findOrCreateDoc(fileName) {
+  var ff = DocsList.getFilesByType("document");
+  for (f in ff) {
+    if (ff[f].getName() == fileName) { 
+      var fileId = ff[f].getId();
+      break;
+    }
+  }
+  if (fileId) return fileId;
+  else {
+    var doc = DocumentApp.create(fileName);
+    return doc.getId()
+  }
+}  
+
+function myFunction() {
+  
+  // Create a document.
+//  var doc = DocumentApp.create("new_t1");
+//  doc.appendParagraph("This is a test")
+  // Logger.log(MailApp.getRemainingDailyQuota())
+//  Logger.log(ContactsApp.getContacts()[0].getEmails()[0].getAddress())
+//  var ss = DocsList.getFilesByType("document");
+//  for (s in ss) {
+//    ss[s].setTrashed(true);
+//    Logger.log(ss[s].getId() + "\n" + ss[s].getName());
+//  }
+//  f = DocsList.createFile("abc", "efg")
+  if (fileId = myFile('ilya2')) {
+    Logger.log(fileId);
+  } else {
+    Logger.log('Not found');
+  }
+}
+
+function t1() {
+//  var resp = UrlFetchApp.fetch("http://www.google.com/intl/en_com/images/srpr/logo2w.png");
+  var doc = DocumentApp.openById(findOrCreateDoc("ilya2"));
+  // Append the image to the first paragraph.
+  // doc.getChild(0).asParagraph().appendInlineImage(resp.getBlob());
+  var text1 = "This is a test paragraph. It does not intend to convey any meaning - it's just a test. Therefore, you can relax and not even try to understand what it says." 
+  var time1 = Utilities.formatDate(new Date(), "EST", "EEEE, MMMM dd, yyyy 'at' HH:mm:ss")      
+
+  var z = "";
+  var zz = []
+//  for (x in DocumentApp.FontFamily.values()) {z = z + "|" + DocumentApp.FontFamily.values()[x].name()}
+  var fonts = DocumentApp.FontFamily.values(); 
+  for (f in fonts) {zz.push(fonts[f].toString());}
+  z = zz.join(", ");
+    
+  var p1 = doc.appendParagraph("FONTS: " + z);
+  
+//  var fonts = [
+//'AMARANTH',
+//'ARIAL',
+//'ARIAL_BLACK',
+//'ARIAL_NARROW',
+//'ARVO',
+//'CALIBRI',
+//'CAMBRIA',
+//'COMIC_SANS_MS',
+//'CONSOLAS',
+//'CORSIVA',
+//'COURIER_NEW',
+//'DANCING_SCRIPT',
+//'DROID_SANS',
+//'DROID_SERIF',
+//'GARAMOND',
+//'GEORGIA',
+//'LOBSTER',
+//'MERRIWEATHER',
+//'PHILOSOPHER',
+//'QUATTROCENTO',
+//'SYNCOPATE',
+//'TAHOMA',
+//'TIMES_NEW_ROMAN',
+//'TREBUCHET_MS',
+//'UBUNTU',
+//'VERDANA'
+//]
+  
+  for (i in fonts) {
+    var p1 = doc.appendParagraph(fonts[i] + ': ' + text1 + "\n" + "(posted on " + time1 + ")")
+//    p1.asParagraph().setFontFamily(DocumentApp.FontFamily[fonts[i].name()])
+    p1.asParagraph().setFontFamily(fonts[i])
+  }
+}
+
+function t2() {
+  var template = "Hello, #{name}. This seems to work OK...";
+  var data = {"name" : "Ilya"}
+  var x = fillIn(template, data);
+  Browser.msgBox(x);
+}
+
+function t3() {
+  var doc1 = DocumentApp.openById(findOrCreateDoc("ilya3"));  
+  var doc2 = DocumentApp.openById(findOrCreateDoc("ilya2"));
+  doc2.setText("")
+  var x2 = doc2.appendParagraph(doc1.getText());
+
+  var p1 = doc1.getParagraphs();
+  var p2 = doc2.getParagraphs();
+  var x22 = doc2.appendParagraph(p1.length + "/" + p2.length);  
+//  doc2.removeChild(p2[0]);
+//  x1 = doc1.getText()
+//  Browser.msgBox(x1);
+//  doc2.removeChild(x1)
+}
+
+function fillIn(template, data) {
+  var result = template;
+  // Search for all the variables to be replaced, for instance ${"Column name"}
+  var templateVars = template.match(/\#\{(.+)\}/g);
+
+//  Browser.msgBox(templateVars[0]);
+  // Replace variables from the template with the actual values from the data object.
+  // If no value is available, replace with the empty string.
+  for (var i = 0; i < templateVars.length; ++i) {
+    // normalizeHeader ignores ${"} so we can call it directly here.
+    var variableData = data[varToKey(templateVars[i])];
+    result = result.replace(templateVars[i], variableData || "");
+  }
+
+  return result;
+}
+
+function varToKey(varStr) {
+  var x = varStr.split(/\#\{|\}/);
+//  Browser.msgBox(x);
+  return x[1];
+}
+
+function s1() {
+  sId = "0Aqx4TIpd3_NFdC1iNHhlamZMYVJWeXpXMXdiX3U2SVE"
+  var s = SpreadsheetApp.openById(sId).getSheetByName("Ilya");
+//  SpreadsheetApp.setActiveSpreadsheet(s);
+//  ss =  SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ilya");
+//  ideas_sheet.getRange("A" + next_empty_row + ":C" + next_empty_row).setValues([e.parameter.ideadescription, Session.getActiveUser().getUserLoginId(), Session.getActiveUser().getEmail()])
+  var app = UiApp.createApplication();
+  var testBtn = app.createButton('Call').setId("testBtn")
+  s.getRange("A2").setValue(Session.getActiveUser().getEmail())  
+}
+
+function logS(mySpreadSheet, logMessage) {
+  s = mySpreadSheet.getActiveSheet();
+  var dateNow = Utilities.formatDate(new Date(), "EST", "MM/dd/yyyy");  
+  var timeNow = Utilities.formatDate(new Date(), "EST", "hh:mm:ss a");
+  var logSheet = mySpreadSheet.getSheetByName(dateNow);
+  if (!logSheet) {
+    logSheet = mySpreadSheet.insertSheet(dateNow, mySpreadSheet.getNumSheets());
+    mySpreadSheet.setActiveSheet(s);
+  }
+  
+  Logger.log(logSheet.getLastRow());
+  // logSheet.getRange(logSheet.getLastRow() + 1, 1, 1, 2).setValues([[timeNow, logMessage]]);
+  logSheet.insertRows(1);
+  logSheet.getRange(1,1,1,2).setValues([[timeNow, logMessage]]);
+}
+
+function telNorm(tel) {
+  tel = tel.replace(/[^\d.]/g, "");
+  switch (tel.length) {
+    case 10:
+      tel = "1" + tel;
+      break;
+    case 11:
+      break;
+    default:
+      tel = null;
+  }
+  return tel
+}
+
+function logTest() {
+//  Logger.log(telNorm("1(212)"));
+  sId = "0Aqx4TIpd3_NFdC1iNHhlamZMYVJWeXpXMXdiX3U2SVE"
+  var ss = SpreadsheetApp.openById(sId);
+  logS(ss, "Test");
+}
+
+function onE(e)
+{
+  var bgYes = "#b6d7a8"
+  var bgCall = "#ea9999"
+  var bgNo = "#ffe599"
+  var bgRepeat = "#b4a7d6"
+  var callURL = "http://www.google.com/intl/en_com/images/srpr/logo2w.png";    
+  var callOut = {"Y":"Yes, Please!", "N":"No Way!", "R":"Repeat Call", "C":"Calling..."}; 
+  
+  var r = e.range;
+  var s = r.getSheet()
+  // s.getRange("A2").setValue(Session.getActiveUser().getEmail())  
+  var time1 = Utilities.formatDate(new Date(), "EST", "MMM dd',' hh:mm:ss a");
+  
+//  var logSheet = s.getParent().getSheetByName("Log");
+//  if (!logSheet) {
+//    logSheet = s.getParent().insertSheet("Log", s.getParent().getNumSheets());
+//    s.getParent().setActiveSheet(s);
+//  } 
+
+//  Logger.log(r);
+//  var ss = event.source.getActiveSheet();
+//  var r = event.source.getActiveRange();
+  Logger.log(s.getIndex()); // r.getBackgroundColor());
+  
+  if (s.getIndex() == 1 && r.getColumn() == 1 && s.getRange("A1").getValue().toUpperCase() == "FLAG") {
+    var valU = e.value.toUpperCase()
+    x = s.getRange(r.getRow(), 1, 1, s.getLastColumn())
+    if (valU == "C" || valU == callOut["C"].toUpperCase()) {
+      tel = telNorm(s.getRange(r.getRow(), 3).getValue())
+      if (tel) {
+        x.setBackgroundColor(bgCall);
+        s.getRange(r.getRow(), s.getLastColumn() - 1).setValue(time1);
+        r.setValue(callOut["C"]);
+        var resp = UrlFetchApp.fetch(callURL);
+        var logMessage = "Called " + r.offset(0, 2).getValue();
+        logS(s.getParent(), logMessage);
+        // Browser.msgBox("Dialing", "Calling " + tel, Browser.Buttons.OK);
+      }
+      else {
+        r.setValue('Error: "' + s.getRange(r.getRow(), 3).getValue() + '" is not a valid number');
+        // Browser.msgBox("Error", '"' + s.getRange(r.getRow(), 3).getValue() + '" is not a valid number', Browser.Buttons.OK);
+      }
+    }
+    else if (valU == "Y" || valU == callOut["Y"].toUpperCase()) {
+      x.setBackgroundColor(bgYes);
+      s.getRange(r.getRow(), s.getLastColumn()).setValue(time1);
+      r.setValue(callOut["Y"]);
+    }
+    else if (valU == "N" || valU == callOut["N"].toUpperCase()) {
+      x.setBackgroundColor(bgNo);
+      s.getRange(r.getRow(), s.getLastColumn()).setValue(time1);
+      r.setValue(callOut["N"]);
+    }
+    else if (valU == "R" || valU == callOut["R"].toUpperCase()) {
+      x.setBackgroundColor(bgRepeat);
+      s.getRange(r.getRow(), s.getLastColumn()).setValue(time1);
+      r.setValue(callOut["R"]);
+    }
+    else {
+      x.setBackgroundColor("white");
+    }
+    // r.setComment(time1);
+  }
+
+}
