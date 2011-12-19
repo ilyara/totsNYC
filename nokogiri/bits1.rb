@@ -14,7 +14,7 @@ AREA = %w(midtown_manhattan uptown_manhattan upper_manhattan) #downtown_manhatta
         create table if not exists buildings 
         (id integer primary key, ref_url string, address string, name string, description string,
         neigborhood string, neigborhood_type string, ownership_type string, source string, 
-        status string, load_time datetime);
+        status string, load_time datetime not null default CURRENT_TIMESTAMP);
         create unique index if not exists idx_ref_url_bldg on buildings(ref_url);
 SQL
 
@@ -64,7 +64,7 @@ def batch(file_name, neigborhood_type="test N", ownership_type="test O")
       neigborhood = e.css('a')[1].text
     end
     address = name if (address.nil? or address.empty?) and name[0].to_i > 0
-    description = e.at_css('br').next.text.strip.squeeze(" ") if not e.at_css('br').next.nil?
+    description = e.at_css('br').next.text.strip.squeeze(" ").gsub(/ \n|\n/," ") if not e.at_css('br').next.nil?
     records.push [name, href, address, neigborhood, description, neigborhood_type, ownership_type]
     # print "name: #{name}\nhref: #{href}\naddress: #{address}\nneigborhood: #{neigborhood}\ndescription: #{description}\n"
     rescue
@@ -77,16 +77,22 @@ def batch(file_name, neigborhood_type="test N", ownership_type="test O")
   puts "Processed #{records.count} records"
 end
 
-#file_name = ARGV[0] || '1.html'
-#batch(file_name)
+def get_building_list()
+  area_building_type_file = []
+  BUILDING_TYPE.each do |b|
+    AREA.each do |a|
+      #`curl #{BASE_URL}/#{a}_#{b}.html > #{@file_dir}/#{a}_#{b}.html`
+      batch "#{a}_#{b}.html", a, b
+  #    area_building_type_file.push "#{a}_#{b}.html"
 
-area_building_type_file = []
-BUILDING_TYPE.each do |b|
-  AREA.each do |a|
-    batch "#{a}_#{b}.html", a, b
-#    area_building_type_file.push "#{a}_#{b}.html"
-#    puts "curl #{BASE_URL}/#{a}_#{b}.html > #{a}_#{b}.html"
+    end
   end
+end
+
+action = ARGV[0] || 'donothing'
+
+if action == 'donothing'
+  puts action; exit
 end
 
 
