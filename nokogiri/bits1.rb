@@ -89,10 +89,23 @@ def get_building_list()
   end
 end
 
+def fetch_buildings()
+end
+
 action = ARGV[0] || 'donothing'
 
 if action == 'donothing'
   puts action; exit
+elsif action == 'fetch'
+  sql = "select ref_url from buildings where status is null"
+  rows = @mydb.db.execute sql
+  # puts rows[0][1]
+  i = 0;
+  rows.each do |r|
+    i += 1
+    puts "#{i} curl #{r[0]} > #{r[0].split('/')[-1]}"
+    puts "sleep 2" if (i%10 == 0)
+  end
 end
 
 
